@@ -1,0 +1,42 @@
+@import "core/style/variable";
+.bloglistitem {
+  display: flex;
+  padding: 16px 15%;
+  font-size: 1.5rem;
+  align-items: start;
+  flex-direction: column;
+}
+.bloglistitem__heading {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bloglistitem__link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.bloglistitem__title {
+  text-align: center;
+  color: $text-color-darker;
+}
+.bloglistitem__date {
+  color: $text-color-dark;
+}
+
+.bloglistitem__tags {
+  margin-top: 5px;
+}
+
+@media (max-width: 1025px) {
+  .bloglistitem {
+    padding: 16px;
+  }
+  .bloglistitem__heading {
+    flex-direction: column;
+  }
+  .bloglistitem__date {
+    font-size: 1rem;
+  }
+}

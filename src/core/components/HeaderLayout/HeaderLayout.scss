@@ -1,0 +1,79 @@
+@import "core/style/variable";
+.header {
+  height: $header-height;
+  color: $text-color-light;
+  background: url("../../images//bg-shapes.svg"), $banner-background-gradient;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 2px 9px 1px rgba(0, 0, 0, 0.12),
+    0 4px 2px -2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: center;
+  z-index: 1;
+  transition: left $transition;
+}
+
+.header__menu {
+  opacity: 0.54;
+  transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
+  border: 0;
+  outline: none;
+  color: $text-color-light !important;
+  height: $header-height !important;
+  width: $header-height !important;
+}
+.header__menu:focus,
+.header__menu:hover {
+  opacity: 1;
+}
+@media (min-width: 1025px) {
+  .header {
+    left: $side-nav-max-width;
+  }
+  .header__menu {
+    visibility: hidden;
+  }
+}
+.header__options {
+  opacity: 0.54;
+  transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
+  border: 0;
+  outline: none;
+  color: $text-color-light !important;
+  height: $header-height !important;
+  width: $header-height !important;
+}
+.header__options:focus,
+.header__options:hover {
+  opacity: 1;
+}
+.header__titlecontainer {
+  font-weight: 400;
+  font-size: 25px;
+  margin: 0;
+  line-height: $header-height;
+}
+.header__titletext {
+  text-decoration: none;
+  color: $text-color-light;
+}
+
+.header-layout {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+}
+
+.header-layout_main {
+  margin-top: $header-height;
+  overflow-y: auto;
+  min-height: calc(100% - #{$header-height});
+  width: inherit;
+}

@@ -1,0 +1,29 @@
+@import "core/style/variable";
+.toast {
+  background-color: $background-color-dark;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  color: $text-color-light;
+  padding: 4px 4px 4px 12px;
+  transition: transform$transition, opacity $transition;
+  transform: translateY(100%);
+  will-change: transform;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+}
+
+.toast.toast__opened {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast .toast__button {
+  color: $text-color-light;
+}

@@ -1,0 +1,23 @@
+$banner-color-dark: #2d74da;
+$banner-color-light: #12a3b4;
+$banner-background-gradient: linear-gradient(
+  90deg,
+  $banner-color-dark,
+  $banner-color-light
+);
+$primary-color: mix($banner-color-dark, $banner-color-light, 60%);
+$text-color-light: #fff;
+$text-color-dark: #444;
+$text-color-darker: #222;
+$header-height: 56px;
+$header-colour: $primary-color;
+$background-color-dark: #404040;
+$background-color-light: #fafafa;
+$background-color: #ececec;
+$background-color-placeholder: #f5f5f5;
+$warning-color: #f00;
+$big-screen: 1025px;
+$transition-time: 130ms;
+$transition-timing-function: ease-in;
+$transition: $transition-time $transition-timing-function;
+$side-nav-max-width: 400px;

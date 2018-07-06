@@ -1,0 +1,40 @@
+{
+  "short_name": "Blog",
+  "name": "Sinnott's Blog",
+  "start_url": "./?utm_source=web_app_manifest",
+  "icons": [
+    {
+      "src": "images/manifest/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/apple-touch-icon.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/ms-touch-icon-144x144-precomposed.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/chrome-touch-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/chrome-splashscreen-icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/chrome-splashscreen-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#2d74da",
+  "theme_color": "#2d74da"
+}

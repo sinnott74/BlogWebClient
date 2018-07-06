@@ -1,0 +1,19 @@
+@import "core/style/variable";
+.options-menu_item {
+  height: 3em;
+  width: 100%;
+  display: block;
+  border: 0;
+  color: $text-color-dark;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+}
+
+.options-menu_item:hover {
+  background: #555;
+  color: #fff;
+}

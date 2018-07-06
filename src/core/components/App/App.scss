@@ -1,0 +1,90 @@
+@import "react-md/src/scss/react-md";
+@import "core/style/variable";
+
+$md-primary-color: $primary-color;
+$md-secondary-color: $md-red-500;
+
+// @include react-md-everything;
+
+@include react-md-typography;
+@include react-md-accessibility;
+@include react-md-grid;
+@include react-md-transitions;
+
+// @include react-md-autocompletes;
+// @include react-md-avatars;
+// @include react-md-badges;
+// @include react-md-bottom-navigations;
+@include react-md-buttons;
+@include react-md-cards;
+@include react-md-chips;
+// @include react-md-collapsers;
+// @include react-md-data-tables;
+@include react-md-dialogs;
+@include react-md-dividers;
+@include react-md-drawers;
+// @include react-md-expansion-panels;
+// @include react-md-file-inputs;
+@include react-md-inks;
+@include react-md-icons;
+@include react-md-layovers;
+// @include react-md-lists;
+// @include react-md-media;
+// @include react-md-menus;
+// @include react-md-navigation-drawers;
+@include react-md-overlays;
+@include react-md-papers;
+@include react-md-pickers;
+@include react-md-progress;
+// @include react-md-select-fields;
+// @include react-md-selection-controls;
+// @include react-md-sliders;
+@include react-md-subheaders;
+// @include react-md-snackbars;
+@include react-md-tabs;
+@include react-md-text-fields;
+// @include react-md-toolbars;
+// @include react-md-tooltips;
+
+@include react-md-helpers-everything;
+@include react-md-colors;
+
+.noscroll {
+  overflow: hidden;
+}
+
+form {
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+form > * {
+  width: 100%;
+}
+
+blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  margin: 1vw;
+  border-left: 0.25em solid $primary-color;
+}
+
+pre {
+  padding: 13px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #f0f0f0;
+  outline: 1px solid #eeeeee;
+  border-left: 5px solid $primary-color;
+}
+code {
+  background: #f0f0f0;
+  outline: 1px solid #eee;
+}
+
+// body {
+//   background-image: url("../../images/bg-shapes.svg");
+// }

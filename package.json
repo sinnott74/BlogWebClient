@@ -1,0 +1,52 @@
+{
+  "name": "sinnott-webclient",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "concurrently \"yarn watch-css\" \"yarn start-js\"",
+    "build": "yarn build-css && yarn build-js",
+    "pretest": "yarn build",
+    "test":
+      "echo \"Starting webclient tests\" && react-scripts test --env=jsdom --coverage",
+    "build-js": "react-scripts build",
+    "start-js": "react-scripts start",
+    "build-css":
+      "node-sass-chokidar --include-path ./src --include-path ../node_modules src/ -o src/",
+    "watch-css":
+      "yarn build-css && node-sass-chokidar --include-path ./src --include-path ../node_modules src/ -o src/ --watch --recursive"
+  },
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost:8080",
+      "secure": false
+    }
+  },
+  "prepare": "",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "history": "^4.7.2",
+    "marked": "^0.3.12",
+    "prismjs": "^1.14.0",
+    "prop-types": "^15.6.0",
+    "react-md": "^1.2.11",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-loadable": "^5.3.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "node-sass-chokidar": "^0.0.3",
+    "react-scripts": "1.1.4",
+    "react-test-renderer": "^16.2.0"
+  }
+}

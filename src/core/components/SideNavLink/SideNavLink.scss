@@ -1,0 +1,27 @@
+@import "core/style/variable";
+.side-nav__link {
+  line-height: 48px;
+  height: 48px;
+  text-decoration: none;
+  border: 0;
+  display: flex;
+  cursor: pointer;
+  color: $text-color-dark;
+  justify-content: flex-start;
+}
+
+.side-nav-link__icon {
+  margin: 0 24px;
+  line-height: 48px !important;
+  font-size: 32px !important;
+}
+
+.side-nav__link-active,
+.side-nav__link:focus,
+side-nav__link:active {
+  background-color: $background-color;
+}
+
+.no-decoration {
+  text-decoration: none;
+}
