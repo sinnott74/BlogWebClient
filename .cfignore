@@ -1,0 +1,5 @@
+*
+!build/
+!Staticfile
+!nginx.conf
+!manifest.yml
