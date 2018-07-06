@@ -10,8 +10,8 @@
     "test": "echo \"Starting webclient tests\" && react-scripts test --env=jsdom --coverage",
     "build-js": "react-scripts build",
     "start-js": "react-scripts start",
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ../node_modules src/ -o src/",
-    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ../node_modules src/ -o src/ --watch --recursive"
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "proxy": {
     "/api/*": {
