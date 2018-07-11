@@ -6,7 +6,7 @@ set -e
 
 sed -i  "s#<%= ENV\[\"PORT\"\] %>#$PORT#g" /etc/nginx/nginx.conf
 sed -i  "s#<%= ENV\[\"APP_ROOT\"\] %>#$APP_ROOT#g" /etc/nginx/nginx.conf
-sed -i  "s#<%= ENV\[\"BACKEND_ADDR\"\] %>#$BACKEND_ADDR#g" /etc/nginx/nginx.conf
+sed -i  "s#<%= ENV\[\"BACKEND_URL\"\] %>#$BACKEND_URL#g" /etc/nginx/nginx.conf
 cat /etc/nginx/nginx.conf
 
 exec "$@"
