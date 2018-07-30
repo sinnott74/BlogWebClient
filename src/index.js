@@ -10,6 +10,13 @@ import "react-md/lib/Buttons/Button";
 import "react-md/lib/TextFields/TextField";
 import "react-md/lib/Pickers/DatePicker";
 
+history.listen(function(location) {
+  if (window.ga) {
+    window.ga("set", "page", location.pathname + location.search);
+    window.ga("send", "pageview", location.pathname + location.search);
+  }
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
