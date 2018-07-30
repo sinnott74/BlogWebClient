@@ -19,15 +19,13 @@ export default class ViewBlogPost extends React.Component {
   componentDidMount() {}
 
   render() {
-    const authorName = this.props.author ? this.props.author.fullname : "";
-
     return (
       <Card className="blogpost">
         <h1 className="blogpost__title">{this.props.title}</h1>
         {this.props.author && (
-          <div className="blogpost__subtitle">{`${
-            this.props.date
-          } by ${authorName}`}</div>
+          <div className="blogpost__subtitle">{`${this.props.date} by ${
+            this.props.author.firstname
+          } ${this.props.author.lastname}`}</div>
         )}
         {this.props.tags && this.getTags()}
         <div
@@ -95,7 +93,8 @@ ViewBlogPost.propTypes = {
   text: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   author: PropTypes.shape({
-    fullname: PropTypes.string.isRequired
+    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired
   }),
   user_id: PropTypes.number.isRequired,
   loggedInUserID: PropTypes.number.isRequired,

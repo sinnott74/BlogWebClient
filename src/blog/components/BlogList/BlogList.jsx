@@ -96,7 +96,8 @@ BlogList.propTypes = {
       text: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired,
       author: PropTypes.shape({
-        fullname: PropTypes.string.isRequired
+        firstname: PropTypes.string.isRequired,
+        lastname: PropTypes.string.isRequired
       }),
       user_id: PropTypes.number.isRequired,
       tags: PropTypes.arrayOf(
