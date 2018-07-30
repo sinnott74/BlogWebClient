@@ -11,9 +11,8 @@ import "react-md/lib/TextFields/TextField";
 import "react-md/lib/Pickers/DatePicker";
 
 history.listen(function(location) {
-  if (window.ga) {
-    window.ga("set", "page", location.pathname + location.search);
-    window.ga("send", "pageview", location.pathname + location.search);
+  if (window.gtag) {
+    window.gtag("config", "UA-122936407-1");
   }
 });
 
