@@ -4,8 +4,11 @@
 $md-primary-color: $primary-color;
 $md-secondary-color: $md-red-500;
 
-// @include react-md-everything;
+$md-font-size-base: $font-size;
+$md-body-mobile-font-size: $font-size;
+$md-body-desktop-font-size: $font-size;
 
+// @include react-md-everything;
 @include react-md-typography;
 @include react-md-accessibility;
 @include react-md-grid;
@@ -67,9 +70,12 @@ form > * {
 
 blockquote {
   padding: 0 1em;
-  color: #6a737d;
   margin: 1vw;
   border-left: 0.25em solid $primary-color;
+}
+
+blockquote > * {
+  color: #484848;
 }
 
 pre {
