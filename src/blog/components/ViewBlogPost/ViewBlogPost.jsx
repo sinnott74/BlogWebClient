@@ -41,7 +41,6 @@ export default class ViewBlogPost extends React.Component {
     if (this.props.text) {
       const rawMarkup = marked(this.props.text, {
         sanitize: true,
-        breaks: true,
         gfm: true,
         tables: true,
         // langPrefix: "language-",
