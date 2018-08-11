@@ -9,8 +9,9 @@ const Link = props => {
   return (
     <NavLink
       className={props.className}
-      exact={props.exact}
       activeClassName={props.activeClassName}
+      style={props.style}
+      exact={props.exact}
       onClick={props.handleClick}
       to={{
         pathname: props.to,
@@ -25,7 +26,11 @@ const Link = props => {
 };
 
 Link.propTypes = {
-  to: PropTypes.string.isRequired
+  to: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  activeClassName: PropTypes.string,
+  exact: PropTypes.bool,
+  handleClick: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -39,4 +44,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(Link));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Link)
+);
