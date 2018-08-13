@@ -2,7 +2,7 @@ export default [
   {
     path: "/",
     loader: () =>
-      import(/* webpackChunkName: "ListBlogPostPage" */ "blog/pages/BlogListPage"),
+      import(/* webpackChunkName: "ListBlogPostPage" */ "blog/pages/ListBlogPostPage"),
     exact: true
   },
   {
