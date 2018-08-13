@@ -14,9 +14,9 @@ export default class BlogList extends React.Component {
 
   componentDidMount() {
     this.props.fetchData();
-    this.props.getFilterTags();
+    this.props.loadFilterTagsFromURL();
     this.unlisten = this.props.history.listen(() => {
-      this.props.getFilterTags();
+      this.props.loadFilterTagsFromURL();
     });
   }
 
@@ -28,8 +28,7 @@ export default class BlogList extends React.Component {
     if (this.props.blogPosts.length === 0) {
       return <Spinner />;
     }
-    const filteredBlogPosts = this.filterBlogPosts();
-    const blogPosts = filteredBlogPosts.map(blogPost => {
+    const blogPosts = this.props.blogPosts.map(blogPost => {
       return (
         <BlogListItem
           key={blogPost.id}
@@ -53,25 +52,6 @@ export default class BlogList extends React.Component {
 
   removeFilterTag(tagName) {
     this.props.removeFilterTag(tagName);
-  }
-
-  filterBlogPosts() {
-    if (this.props.filterTags.length) {
-      const filterTags = this.props.filterTags;
-      return this.props.blogPosts.filter(blogpost => {
-        if (!blogpost.tags) {
-          return false;
-        }
-
-        const blogpostTags = blogpost.tags.map(tag => {
-          return tag.name;
-        });
-        return filterTags.every(filterTag => {
-          return blogpostTags.includes(filterTag);
-        });
-      });
-    }
-    return this.props.blogPosts;
   }
 
   getFilterTags() {

@@ -1,7 +1,7 @@
 import ViewBlogPost from "blog/components/ViewBlogPost";
 import { connect } from "react-redux";
 import { getLoggedInUserID } from "core/ducks/auth";
-import { loadBlogPost } from "blog/ducks/blog";
+import { loadBlogPost, showFilteredBlogPosts } from "blog/ducks/blog";
 
 class DataFetchingViewBlogPost extends ViewBlogPost {
   componentDidMount() {
@@ -16,7 +16,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchData: () => dispatch(loadBlogPost(ownProps.id))
+  fetchData: () => dispatch(loadBlogPost(ownProps.id)),
+  onTagClick: tag => dispatch(showFilteredBlogPosts(tag))
 });
 
 export default connect(

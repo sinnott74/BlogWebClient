@@ -8,7 +8,7 @@ import { showToast } from "core/ducks/toast";
 import { push } from "react-router-redux";
 import { createSelector } from "reselect";
 import reducerRegistry from "core/redux/ReducerRegistry";
-import { history } from "core/redux/store";
+// import { history } from "core/redux/store";
 
 /*
  * Blog actions
@@ -142,7 +142,7 @@ export function deleteBlogPost(id) {
       })
       .then(() => dispatch(removeBlogPost(id)))
       .then(() => dispatch(showToast("Blog post deleted")))
-      .then(() => dispatch(push(`/blog/`)))
+      .then(() => dispatch(push(`/`)))
       .catch(err => {
         dispatch(blogHasErrored(true));
         dispatch(showToast("Delete failed"));
@@ -253,7 +253,12 @@ export function loadBlogPost(id) {
   };
 }
 
-export function getFilterTags(location, tags) {
+/**
+ * Add the selected tag to the store & to the locations query paramaters
+ * @param {*} location
+ * @param {string} tag
+ */
+export function loadFilterTagsFromURL(location) {
   return function(dispatch) {
     const searchParams = new URLSearchParams(location.search);
     const tags = searchParams.getAll("tags") || [];
@@ -261,6 +266,11 @@ export function getFilterTags(location, tags) {
   };
 }
 
+/**
+ * Add the selected tag to the store & to the locations query paramaters
+ * @param {*} location
+ * @param {string} tag
+ */
 export function addFilterTag(location, tag) {
   return function(dispatch) {
     const searchParams = new URLSearchParams(location.search);
@@ -270,12 +280,17 @@ export function addFilterTag(location, tag) {
     }
     searchParams.append("tags", tag);
     location.search = searchParams.toString();
-    history.push(location);
+    dispatch(push(location));
     tags = searchParams.getAll("tags");
     dispatch(setFilterTags(tags));
   };
 }
 
+/**
+ * Removes the selected tag from the store & the locations query paramaters
+ * @param {*} location
+ * @param {string} removeTag
+ */
 export function removeFilterTag(location, removeTag) {
   return function(dispatch) {
     const searchParams = new URLSearchParams(location.search);
@@ -288,9 +303,19 @@ export function removeFilterTag(location, removeTag) {
       searchParams.append("tags", tag);
     });
     location.search = searchParams.toString();
-    history.push(location);
+    dispatch(push(location));
     tags = searchParams.getAll("tags");
     dispatch(setFilterTags(tags));
+  };
+}
+
+/**
+ * Navigates the the blog post list page & filters by the selected tag
+ */
+
+export function showFilteredBlogPosts(tag) {
+  return function(dispatch) {
+    dispatch(push(`/?tags=${tag}`));
   };
 }
 
@@ -319,28 +344,28 @@ export const getBlogPostsSortedByCreatedByDate = createSelector(
   }
 );
 
-// export const getFilterTags = location => {
-//   const searchParams = new URLSearchParams(location.search);
-//   return searchParams.getAll("tags") || [];
-// };
+export function getFilteredAndSortedBlogPosts(state) {
+  let blogposts = getBlogPostsSortedByCreatedByDate(state);
+  const filterTags = getFilterTags(state);
 
-// export const addFilterTag = (location, tag) => {
-//   const searchParams = new URLSearchParams(location.search);
-//   searchParams.append("tags", tag);
-//   location.search = searchParams.toString();
-//   history.push(location);
-// };
+  if (!filterTags.length) {
+    return blogposts;
+  }
+  // Filter by Tag
+  return blogposts.filter(blogpost => {
+    if (!blogpost.tags) {
+      return false;
+    }
 
-// export const removeFilterTag = (location, removeTag) => {
-//   const searchParams = new URLSearchParams(location.search);
-//   const tags = searchParams.getAll("tags");
-//   searchParams.delete("tags");
-//   tags.forEach(tag => {
-//     if (tag === removeTag) {
-//       return;
-//     }
-//     searchParams.append("tags", tag);
-//   });
-//   location.search = searchParams.toString();
-//   history.push(location);
-// };
+    const blogpostTags = blogpost.tags.map(tag => {
+      return tag.name;
+    });
+    return filterTags.every(filterTag => {
+      return blogpostTags.includes(filterTag);
+    });
+  });
+}
+
+export function getFilterTags(state) {
+  return state.blog.filterTags || [];
+}

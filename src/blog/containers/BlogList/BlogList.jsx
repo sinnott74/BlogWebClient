@@ -3,22 +3,24 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import {
   loadBlogPosts,
-  getBlogPostsSortedByCreatedByDate,
+  getFilteredAndSortedBlogPosts,
   getFilterTags,
   addFilterTag,
-  removeFilterTag
+  removeFilterTag,
+  loadFilterTagsFromURL
 } from "blog/ducks/blog";
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchData: () => dispatch(loadBlogPosts()),
-  getFilterTags: location => dispatch(getFilterTags(ownProps.location)),
   addFilterTag: tag => dispatch(addFilterTag(ownProps.location, tag)),
-  removeFilterTag: tag => dispatch(removeFilterTag(ownProps.location, tag))
+  removeFilterTag: tag => dispatch(removeFilterTag(ownProps.location, tag)),
+  loadFilterTagsFromURL: () =>
+    dispatch(loadFilterTagsFromURL(ownProps.location))
 });
 
 const mapStateToProps = (state, ownProps) => ({
-  blogPosts: getBlogPostsSortedByCreatedByDate(state),
-  filterTags: state.blog.filterTags
+  blogPosts: getFilteredAndSortedBlogPosts(state),
+  filterTags: getFilterTags(state)
 });
 
 export default withRouter(
