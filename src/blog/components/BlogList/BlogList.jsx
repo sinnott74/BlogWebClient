@@ -8,15 +8,20 @@ import "./BlogList.css";
 export default class BlogList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      filterTags: []
-    };
     this.addFilterTag = this.addFilterTag.bind(this);
     this.removeFilterTag = this.removeFilterTag.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchData();
+    this.props.getFilterTags();
+    this.unlisten = this.props.history.listen(() => {
+      this.props.getFilterTags();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   render() {
@@ -43,22 +48,16 @@ export default class BlogList extends React.Component {
   }
 
   addFilterTag(tagName) {
-    if (!this.state.filterTags.includes(tagName)) {
-      this.setState({ filterTags: [...this.state.filterTags, tagName] });
-    }
+    this.props.addFilterTag(tagName);
   }
 
   removeFilterTag(tagName) {
-    this.setState({
-      filterTags: this.state.filterTags.filter(filterTag => {
-        return filterTag !== tagName;
-      })
-    });
+    this.props.removeFilterTag(tagName);
   }
 
   filterBlogPosts() {
-    if (this.state.filterTags.length) {
-      const filterTags = this.state.filterTags;
+    if (this.props.filterTags.length) {
+      const filterTags = this.props.filterTags;
       return this.props.blogPosts.filter(blogpost => {
         if (!blogpost.tags) {
           return false;
@@ -76,7 +75,7 @@ export default class BlogList extends React.Component {
   }
 
   getFilterTags() {
-    const tags = this.state.filterTags.map(tag => {
+    const tags = this.props.filterTags.map(tag => {
       return (
         <TagChip tag={tag} key={tag} onClick={this.removeFilterTag} removable />
       );
@@ -107,5 +106,9 @@ BlogList.propTypes = {
         })
       )
     })
-  ).isRequired
+  ).isRequired,
+  filterTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getFilterTags: PropTypes.func.isRequired,
+  addFilterTag: PropTypes.func.isRequired,
+  removeFilterTag: PropTypes.func.isRequired
 };

@@ -20,6 +20,6 @@ export default class TagChip extends React.PureComponent {
 
 TagChip.propTypes = {
   tag: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   removable: PropTypes.bool
 };

@@ -8,6 +8,7 @@ import { showToast } from "core/ducks/toast";
 import { push } from "react-router-redux";
 import { createSelector } from "reselect";
 import reducerRegistry from "core/redux/ReducerRegistry";
+import { history } from "core/redux/store";
 
 /*
  * Blog actions
@@ -17,6 +18,7 @@ const DELETE_BLOG_ENTRY = "DELETE_BLOG_ENTRY";
 const LOADING_BLOG_POSTS = "LOAD_BLOG_POSTS";
 const BLOG_POSTS_ERRORED = "BLOG_POSTS_ERRORED";
 const STORE_BLOG_POST = "STORE_BLOG_POST";
+const SET_FILTER_TAGS = "SET_FILTER_TAGS";
 
 /**
  * Reducer
@@ -24,6 +26,7 @@ const STORE_BLOG_POST = "STORE_BLOG_POST";
 let initialState = {
   byId: {},
   allIds: [],
+  filterTags: [],
   isLoading: false,
   hasErrored: false
 };
@@ -63,6 +66,11 @@ export default function reducer(state = initialState, action) {
           ...blogPost
         },
         allIds: addToArrayAndSort(state.allIds, action.blogPost.id.toString())
+      };
+    case SET_FILTER_TAGS:
+      return {
+        ...state,
+        filterTags: action.tags
       };
     default:
       return state;
@@ -106,6 +114,13 @@ function storeBlogPost(blogPost) {
   return {
     type: STORE_BLOG_POST,
     blogPost
+  };
+}
+
+function setFilterTags(tags) {
+  return {
+    type: SET_FILTER_TAGS,
+    tags: tags
   };
 }
 
@@ -238,6 +253,47 @@ export function loadBlogPost(id) {
   };
 }
 
+export function getFilterTags(location, tags) {
+  return function(dispatch) {
+    const searchParams = new URLSearchParams(location.search);
+    const tags = searchParams.getAll("tags") || [];
+    dispatch(setFilterTags(tags));
+  };
+}
+
+export function addFilterTag(location, tag) {
+  return function(dispatch) {
+    const searchParams = new URLSearchParams(location.search);
+    let tags = searchParams.getAll("tags");
+    if (tags.includes(tag)) {
+      return;
+    }
+    searchParams.append("tags", tag);
+    location.search = searchParams.toString();
+    history.push(location);
+    tags = searchParams.getAll("tags");
+    dispatch(setFilterTags(tags));
+  };
+}
+
+export function removeFilterTag(location, removeTag) {
+  return function(dispatch) {
+    const searchParams = new URLSearchParams(location.search);
+    let tags = searchParams.getAll("tags");
+    searchParams.delete("tags");
+    tags.forEach(tag => {
+      if (tag === removeTag) {
+        return;
+      }
+      searchParams.append("tags", tag);
+    });
+    location.search = searchParams.toString();
+    history.push(location);
+    tags = searchParams.getAll("tags");
+    dispatch(setFilterTags(tags));
+  };
+}
+
 /**
  * Selectors
  */
@@ -262,3 +318,29 @@ export const getBlogPostsSortedByCreatedByDate = createSelector(
       });
   }
 );
+
+// export const getFilterTags = location => {
+//   const searchParams = new URLSearchParams(location.search);
+//   return searchParams.getAll("tags") || [];
+// };
+
+// export const addFilterTag = (location, tag) => {
+//   const searchParams = new URLSearchParams(location.search);
+//   searchParams.append("tags", tag);
+//   location.search = searchParams.toString();
+//   history.push(location);
+// };
+
+// export const removeFilterTag = (location, removeTag) => {
+//   const searchParams = new URLSearchParams(location.search);
+//   const tags = searchParams.getAll("tags");
+//   searchParams.delete("tags");
+//   tags.forEach(tag => {
+//     if (tag === removeTag) {
+//       return;
+//     }
+//     searchParams.append("tags", tag);
+//   });
+//   location.search = searchParams.toString();
+//   history.push(location);
+// };

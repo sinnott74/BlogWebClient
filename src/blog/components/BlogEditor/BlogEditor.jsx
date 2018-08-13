@@ -123,7 +123,7 @@ export default class BlogEditor extends React.Component {
                   });
                 }}
               />
-              <div class="blogeditor_buttons">
+              <div className="blogeditor_buttons">
                 <CancelButton link={`/blog/${this.props.id}`} />
                 <SubmitButton
                   isSubmitting={this.props.isSubmitting}

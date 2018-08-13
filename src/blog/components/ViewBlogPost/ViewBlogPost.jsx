@@ -80,7 +80,7 @@ export default class ViewBlogPost extends React.Component {
 
   getTags() {
     const tags = this.props.tags.map(tag => {
-      return <TagChip tag={tag.name} />;
+      return <TagChip key={tag.name} tag={tag.name} />;
     });
     return <div className="blogpost_tags">{tags}</div>;
   }

@@ -1,19 +1,29 @@
 import BlogList from "blog/components/BlogList";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import {
   loadBlogPosts,
-  getBlogPostsSortedByCreatedByDate
+  getBlogPostsSortedByCreatedByDate,
+  getFilterTags,
+  addFilterTag,
+  removeFilterTag
 } from "blog/ducks/blog";
 
-const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(loadBlogPosts())
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  fetchData: () => dispatch(loadBlogPosts()),
+  getFilterTags: location => dispatch(getFilterTags(ownProps.location)),
+  addFilterTag: tag => dispatch(addFilterTag(ownProps.location, tag)),
+  removeFilterTag: tag => dispatch(removeFilterTag(ownProps.location, tag))
 });
 
-const mapStateToProps = state => ({
-  blogPosts: getBlogPostsSortedByCreatedByDate(state)
+const mapStateToProps = (state, ownProps) => ({
+  blogPosts: getBlogPostsSortedByCreatedByDate(state),
+  filterTags: state.blog.filterTags
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BlogList);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(BlogList)
+);

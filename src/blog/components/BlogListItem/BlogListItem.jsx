@@ -35,6 +35,7 @@ class BlogListItem extends React.PureComponent {
     return this.props.tags.map(tag => {
       return (
         <TagChip
+          key={tag.name}
           tag={tag.name}
           onClick={() => {
             if (this.props.onTagClick) {
