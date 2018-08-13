@@ -1,7 +1,8 @@
 @import "core/style/variable";
 
+$blogpostmargin: 5px;
 .blogpost {
-  width: calc(98% - 6px);
+  width: calc(100% - 10px);
 }
 .blogpost__title {
   text-align: center;

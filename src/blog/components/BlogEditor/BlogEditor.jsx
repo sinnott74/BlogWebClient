@@ -89,6 +89,23 @@ export default class BlogEditor extends React.Component {
                 }}
               />
               <TextField
+                id="imageurl"
+                type="text"
+                name="imageurl"
+                label="Image Url"
+                helpText="Please enter an image Url"
+                helpOnFocus
+                value={this.state.imageurl}
+                autoComplete="off"
+                maxLength={255}
+                onChange={(imageurl, e) => {
+                  this.setState({
+                    ...this.state,
+                    imageurl
+                  });
+                }}
+              />
+              <TextField
                 id="text"
                 type="text"
                 name="text"

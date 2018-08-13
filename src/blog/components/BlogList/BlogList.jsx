@@ -35,9 +35,9 @@ export default class BlogList extends React.Component {
     });
 
     return (
-      <div className="bloglist">
+      <div>
         {this.getFilterTags()}
-        {blogPosts}
+        <div className="bloglist">{blogPosts}</div>
       </div>
     );
   }

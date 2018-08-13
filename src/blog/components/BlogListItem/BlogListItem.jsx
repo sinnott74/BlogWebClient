@@ -7,16 +7,25 @@ import "./BlogListItem.css";
 
 class BlogListItem extends React.PureComponent {
   render() {
+    const imageStyle = {
+      backgroundImage: "url(" + this.props.imageurl + ")"
+    };
+
     return (
       <Card className="bloglistitem">
+        <Link
+          to={`/blog/${this.props.id}`}
+          className="bloglistitem__link blogpostitem__image"
+          style={imageStyle}
+        />
         <div className="bloglistitem__heading">
           <Link to={`/blog/${this.props.id}`} className="bloglistitem__link">
-            <span className="bloglistitem__title">{this.props.title}</span>
+            <h2 className="bloglistitem__title">{this.props.title}</h2>
           </Link>
           <div className="bloglistitem__date">{this.props.date}</div>
-        </div>
-        <div className="bloglistitem__tags">
-          {this.props.tags && this.getTags()}
+          <div className="bloglistitem__tags">
+            {this.props.tags && this.getTags()}
+          </div>
         </div>
       </Card>
     );
@@ -42,6 +51,7 @@ BlogListItem.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  imageurl: PropTypes.string,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
