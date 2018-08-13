@@ -6,4 +6,7 @@ const mapDispatchToProps = {
   handleMessage: showToast
 };
 
-export default connect(null, mapDispatchToProps)(ServiceWorker);
+export default connect(
+  null,
+  mapDispatchToProps
+)(ServiceWorker);

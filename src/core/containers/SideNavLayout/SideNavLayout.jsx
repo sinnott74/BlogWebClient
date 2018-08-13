@@ -11,4 +11,7 @@ const mapDispatchToProps = {
   closeSideNav
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideNavLayout);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SideNavLayout);

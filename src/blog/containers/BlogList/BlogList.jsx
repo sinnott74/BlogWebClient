@@ -13,4 +13,7 @@ const mapStateToProps = state => ({
   blogPosts: getBlogPostsSortedByCreatedByDate(state)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogList);

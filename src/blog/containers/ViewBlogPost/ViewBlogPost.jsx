@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchData: () => dispatch(loadBlogPost(ownProps.id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  DataFetchingViewBlogPost
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DataFetchingViewBlogPost);

@@ -6,4 +6,7 @@ const mapStateToProps = (state, ownProps) => ({
   isLoggedIn: isLoggedIn(state)
 });
 
-export default connect(mapStateToProps, null)(AuthenticatedRoute);
+export default connect(
+  mapStateToProps,
+  null
+)(AuthenticatedRoute);

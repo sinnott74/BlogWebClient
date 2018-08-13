@@ -19,4 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   loadBlogPost: () => dispatch(loadBlogPost(ownProps.id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditBlogPost);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditBlogPost);

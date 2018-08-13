@@ -11,4 +11,7 @@ const mapDispatchToProps = {
   handleCloseButtonClick: hideToast
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toast);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Toast);
