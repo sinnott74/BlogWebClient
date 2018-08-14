@@ -3,6 +3,9 @@
 $blogpostmargin: 5px;
 .blogpost {
   width: calc(100% - 10px);
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .blogpost__title {
   text-align: center;
@@ -13,6 +16,10 @@ $blogpostmargin: 5px;
   margin-bottom: 2vh;
   text-align: center;
   width: calc(100% - 2vh);
+}
+.blogpost__image {
+  margin-top: 2vw;
+  width: 100%;
 }
 .blogpost__text {
   padding: 2vw;

@@ -28,6 +28,7 @@ export default class ViewBlogPost extends React.Component {
           } ${this.props.author.lastname}`}</div>
         )}
         {this.props.tags && this.getTags()}
+        <img className="blogpost__image" src={this.props.imageurl} />
         <div
           className="blogpost__text"
           dangerouslySetInnerHTML={this.rawMarkup()}
@@ -107,5 +108,6 @@ ViewBlogPost.propTypes = {
   }),
   user_id: PropTypes.number.isRequired,
   loggedInUserID: PropTypes.number.isRequired,
-  showActions: PropTypes.bool
+  showActions: PropTypes.bool,
+  imageurl: PropTypes.string
 };
