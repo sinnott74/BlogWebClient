@@ -19,6 +19,14 @@ export default class ViewBlogPost extends React.Component {
   componentDidMount() {}
 
   render() {
+    const img = this.props.imageurl ? (
+      <img
+        className="blogpost__image"
+        src={this.props.imageurl}
+        alt={this.props.title}
+      />
+    ) : null;
+
     return (
       <Card className="blogpost">
         <h1 className="blogpost__title">{this.props.title}</h1>
@@ -28,11 +36,7 @@ export default class ViewBlogPost extends React.Component {
           } ${this.props.author.lastname}`}</div>
         )}
         {this.props.tags && this.getTags()}
-        <img
-          className="blogpost__image"
-          src={this.props.imageurl}
-          alt={this.props.title}
-        />
+        {img}
         <div
           className="blogpost__text"
           dangerouslySetInnerHTML={this.rawMarkup()}
