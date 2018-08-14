@@ -28,7 +28,11 @@ export default class ViewBlogPost extends React.Component {
           } ${this.props.author.lastname}`}</div>
         )}
         {this.props.tags && this.getTags()}
-        <img className="blogpost__image" src={this.props.imageurl} />
+        <img
+          className="blogpost__image"
+          src={this.props.imageurl}
+          alt={this.props.title}
+        />
         <div
           className="blogpost__text"
           dangerouslySetInnerHTML={this.rawMarkup()}
