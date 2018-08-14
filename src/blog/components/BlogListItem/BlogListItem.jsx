@@ -11,6 +11,10 @@ class BlogListItem extends React.PureComponent {
       backgroundImage: "url(" + this.props.imageurl + ")"
     };
 
+    if (this.props.tags) {
+      var tagEl = <div className="bloglistitem__tags">{this.getTags()}</div>;
+    }
+
     return (
       <Card className="bloglistitem">
         <Link
@@ -23,9 +27,7 @@ class BlogListItem extends React.PureComponent {
             <h2 className="bloglistitem__title">{this.props.title}</h2>
           </Link>
           <div className="bloglistitem__date">{this.props.date}</div>
-          <div className="bloglistitem__tags">
-            {this.props.tags && this.getTags()}
-          </div>
+          {tagEl}
         </div>
       </Card>
     );
