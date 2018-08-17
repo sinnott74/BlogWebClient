@@ -7,9 +7,11 @@ import "./BlogListItem.css";
 
 class BlogListItem extends React.PureComponent {
   render() {
-    const imageStyle = {
-      backgroundImage: "url(" + this.props.imageurl + ")"
-    };
+    const imageStyle = this.props.imageurl
+      ? {
+          backgroundImage: "url(" + this.props.imageurl + ")"
+        }
+      : {};
 
     if (this.props.tags) {
       var tagEl = <div className="bloglistitem__tags">{this.getTags()}</div>;
