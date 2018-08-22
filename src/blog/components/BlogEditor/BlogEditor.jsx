@@ -89,6 +89,23 @@ export default class BlogEditor extends React.Component {
                 }}
               />
               <TextField
+                id="imageurl"
+                type="text"
+                name="imageurl"
+                label="Image Url"
+                helpText="Please enter an image Url"
+                helpOnFocus
+                value={this.state.imageurl}
+                autoComplete="off"
+                maxLength={255}
+                onChange={(imageurl, e) => {
+                  this.setState({
+                    ...this.state,
+                    imageurl
+                  });
+                }}
+              />
+              <TextField
                 id="text"
                 type="text"
                 name="text"
@@ -106,7 +123,7 @@ export default class BlogEditor extends React.Component {
                   });
                 }}
               />
-              <div class="blogeditor_buttons">
+              <div className="blogeditor_buttons">
                 <CancelButton link={`/blog/${this.props.id}`} />
                 <SubmitButton
                   isSubmitting={this.props.isSubmitting}

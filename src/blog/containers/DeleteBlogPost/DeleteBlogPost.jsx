@@ -6,4 +6,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onDeleteButtonClick: () => dispatch(deleteBlogPost(ownProps.id))
 });
 
-export default connect(null, mapDispatchToProps)(DeleteBlogPost);
+export default connect(
+  null,
+  mapDispatchToProps
+)(DeleteBlogPost);

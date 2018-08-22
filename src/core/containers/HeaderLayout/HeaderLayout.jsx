@@ -8,4 +8,7 @@ const mapDispatchToProps = {
   handleOptionsButtonClick: toggleOptionsMenu
 };
 
-export default connect(null, mapDispatchToProps)(HeaderLayout);
+export default connect(
+  null,
+  mapDispatchToProps
+)(HeaderLayout);

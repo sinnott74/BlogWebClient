@@ -22,9 +22,9 @@ export default class SideNavPanel extends React.Component {
             <SideNavLink to="/about" icon="person_outline">
               About
             </SideNavLink>
-            <SideNavLink to="/code" icon="code">
+            {/* <SideNavLink to="/code" icon="code">
               Code
-            </SideNavLink>
+            </SideNavLink> */}
           </div>
           <div className="sidenavpanel__contentbottom">
             <PersonalLinks />

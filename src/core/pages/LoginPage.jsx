@@ -92,4 +92,7 @@ const mapDispatchToProps = {
   handleLogin: login
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);

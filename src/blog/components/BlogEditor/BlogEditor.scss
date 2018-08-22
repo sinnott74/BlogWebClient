@@ -5,9 +5,12 @@
   max-width: 1000px;
 }
 
-.blogeditor_card {
-  width: 100%;
-}
+// .blogeditor_card {
+//   width: 100%;
+//   max-width: 1024px;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
 
 .blogeditor_container {
   height: 100%;
@@ -18,6 +21,7 @@
 
 .blogeditor_tabpanel {
   margin-top: $md-tab-height;
+  padding: 0;
 }
 
 .blogeditor_tabs {

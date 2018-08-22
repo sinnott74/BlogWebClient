@@ -19,17 +19,24 @@ export default class ViewBlogPost extends React.Component {
   componentDidMount() {}
 
   render() {
-    const authorName = this.props.author ? this.props.author.fullname : "";
+    const img = this.props.imageurl ? (
+      <img
+        className="blogpost__image"
+        src={this.props.imageurl}
+        alt={this.props.title}
+      />
+    ) : null;
 
     return (
       <Card className="blogpost">
         <h1 className="blogpost__title">{this.props.title}</h1>
         {this.props.author && (
-          <div className="blogpost__subtitle">{`${
-            this.props.date
-          } by ${authorName}`}</div>
+          <div className="blogpost__subtitle">{`${this.props.date} by ${
+            this.props.author.firstname
+          } ${this.props.author.lastname}`}</div>
         )}
         {this.props.tags && this.getTags()}
+        {img}
         <div
           className="blogpost__text"
           dangerouslySetInnerHTML={this.rawMarkup()}
@@ -43,7 +50,6 @@ export default class ViewBlogPost extends React.Component {
     if (this.props.text) {
       const rawMarkup = marked(this.props.text, {
         sanitize: true,
-        breaks: true,
         gfm: true,
         tables: true,
         // langPrefix: "language-",
@@ -83,7 +89,17 @@ export default class ViewBlogPost extends React.Component {
 
   getTags() {
     const tags = this.props.tags.map(tag => {
-      return <TagChip tag={tag.name} />;
+      return (
+        <TagChip
+          key={tag.name}
+          tag={tag.name}
+          onClick={() => {
+            if (this.props.onTagClick) {
+              this.props.onTagClick(tag.name);
+            }
+          }}
+        />
+      );
     });
     return <div className="blogpost_tags">{tags}</div>;
   }
@@ -95,9 +111,11 @@ ViewBlogPost.propTypes = {
   text: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   author: PropTypes.shape({
-    fullname: PropTypes.string.isRequired
+    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired
   }),
   user_id: PropTypes.number.isRequired,
   loggedInUserID: PropTypes.number.isRequired,
-  showActions: PropTypes.bool
+  showActions: PropTypes.bool,
+  imageurl: PropTypes.string
 };

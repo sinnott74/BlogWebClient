@@ -13,4 +13,7 @@ const mapDispatchToProps = {
   handleItemClick: closeOptionsMenu
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OptionsMenu);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OptionsMenu);

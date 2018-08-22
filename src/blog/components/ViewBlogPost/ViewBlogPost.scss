@@ -1,7 +1,11 @@
 @import "core/style/variable";
 
+$blogpostmargin: 5px;
 .blogpost {
-  width: calc(98% - 6px);
+  width: calc(100% - 10px);
+  // max-width: 1024px;
+  // margin-left: auto;
+  // margin-right: auto;
 }
 .blogpost__title {
   text-align: center;
@@ -13,6 +17,10 @@
   text-align: center;
   width: calc(100% - 2vh);
 }
+.blogpost__image {
+  margin-top: 2vw;
+  width: 100%;
+}
 .blogpost__text {
   padding: 2vw;
   max-width: 100%;
@@ -21,8 +29,8 @@
 }
 .blogpost__text * {
   max-width: 100%;
-  max-height: 100%;
 }
+
 .blogpost h1,
 .blogpost h2,
 .blogpost h3,
@@ -30,10 +38,13 @@
 .blogpost h5,
 .blogpost h6 {
   white-space: normal;
+  margin-top: 25px;
 }
 .blogpost__text img {
   display: block;
-  margin: auto;
+  width: 100%;
+  margin: 40px 0;
+  max-height: 1000px;
 }
 .blogpost__text p {
   line-height: 25px;

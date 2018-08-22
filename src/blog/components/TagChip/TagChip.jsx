@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Chip from "react-md/lib/Chips/Chip";
+import "./TagChip.css";
 
 export default class TagChip extends React.PureComponent {
   render() {
@@ -20,6 +21,6 @@ export default class TagChip extends React.PureComponent {
 
 TagChip.propTypes = {
   tag: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   removable: PropTypes.bool
 };

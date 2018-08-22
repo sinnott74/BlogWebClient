@@ -6,4 +6,7 @@ const mapDispatchToProps = {
   onMatch: largeScreen
 };
 
-export default connect(null, mapDispatchToProps)(ScreenMediaQuery);
+export default connect(
+  null,
+  mapDispatchToProps
+)(ScreenMediaQuery);

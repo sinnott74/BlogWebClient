@@ -111,7 +111,7 @@ export default class SideNavLayout extends React.Component {
   _updateUI() {
     if (this.touching) {
       let opacityPercentage =
-        this.translateX / this.sideNavContentWidth * this.MAXOPACITY;
+        (this.translateX / this.sideNavContentWidth) * this.MAXOPACITY;
       let tranformX = this.translateX;
 
       if (this.touchingEdge) {

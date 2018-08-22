@@ -7,16 +7,29 @@ import "./BlogListItem.css";
 
 class BlogListItem extends React.PureComponent {
   render() {
+    const imageStyle = this.props.imageurl
+      ? {
+          backgroundImage: "url(" + this.props.imageurl + ")"
+        }
+      : {};
+
+    if (this.props.tags) {
+      var tagEl = <div className="bloglistitem__tags">{this.getTags()}</div>;
+    }
+
     return (
       <Card className="bloglistitem">
+        <Link
+          to={`/blog/${this.props.id}`}
+          className="bloglistitem__link blogpostitem__image"
+          style={imageStyle}
+        />
         <div className="bloglistitem__heading">
           <Link to={`/blog/${this.props.id}`} className="bloglistitem__link">
-            <span className="bloglistitem__title">{this.props.title}</span>
+            <h2 className="bloglistitem__title">{this.props.title}</h2>
           </Link>
           <div className="bloglistitem__date">{this.props.date}</div>
-        </div>
-        <div className="bloglistitem__tags">
-          {this.props.tags && this.getTags()}
+          {tagEl}
         </div>
       </Card>
     );
@@ -26,6 +39,7 @@ class BlogListItem extends React.PureComponent {
     return this.props.tags.map(tag => {
       return (
         <TagChip
+          key={tag.name}
           tag={tag.name}
           onClick={() => {
             if (this.props.onTagClick) {
@@ -42,6 +56,7 @@ BlogListItem.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  imageurl: PropTypes.string,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

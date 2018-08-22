@@ -4,8 +4,13 @@
 $md-primary-color: $primary-color;
 $md-secondary-color: $md-red-500;
 
-// @include react-md-everything;
+$md-font-size-base: $font-size;
+$md-body-mobile-font-size: $font-size;
+$md-body-desktop-font-size: $font-size;
+$md-text-field-mobile-font-size: $font-size * 1px;
+$md-text-field-desktop-font-size: $font-size * 1px;
 
+// @include react-md-everything;
 @include react-md-typography;
 @include react-md-accessibility;
 @include react-md-grid;
@@ -49,6 +54,27 @@ $md-secondary-color: $md-red-500;
 @include react-md-helpers-everything;
 @include react-md-colors;
 
+h1 {
+  font-size: $font-size * 2.4px;
+  line-height: $font-size * 2.5px;
+}
+h2 {
+  font-size: $font-size * 1.7px;
+  line-height: $font-size * 2px;
+}
+h3 {
+  font-size: $font-size * 1.5px;
+  line-height: $font-size * 1.8px;
+}
+h4 {
+  font-size: $font-size * 1.2px;
+  line-height: $font-size * 1.5px;
+}
+h5 {
+  font-size: $font-size * 1px;
+  line-height: $font-size * 2.5px;
+}
+
 .noscroll {
   overflow: hidden;
 }
@@ -67,9 +93,12 @@ form > * {
 
 blockquote {
   padding: 0 1em;
-  color: #6a737d;
   margin: 1vw;
   border-left: 0.25em solid $primary-color;
+}
+
+blockquote > * {
+  color: #484848;
 }
 
 pre {

@@ -8,6 +8,7 @@ import { showToast } from "core/ducks/toast";
 import { push } from "react-router-redux";
 import { createSelector } from "reselect";
 import reducerRegistry from "core/redux/ReducerRegistry";
+// import { history } from "core/redux/store";
 
 /*
  * Blog actions
@@ -17,6 +18,7 @@ const DELETE_BLOG_ENTRY = "DELETE_BLOG_ENTRY";
 const LOADING_BLOG_POSTS = "LOAD_BLOG_POSTS";
 const BLOG_POSTS_ERRORED = "BLOG_POSTS_ERRORED";
 const STORE_BLOG_POST = "STORE_BLOG_POST";
+const SET_FILTER_TAGS = "SET_FILTER_TAGS";
 
 /**
  * Reducer
@@ -24,6 +26,7 @@ const STORE_BLOG_POST = "STORE_BLOG_POST";
 let initialState = {
   byId: {},
   allIds: [],
+  filterTags: [],
   isLoading: false,
   hasErrored: false
 };
@@ -63,6 +66,11 @@ export default function reducer(state = initialState, action) {
           ...blogPost
         },
         allIds: addToArrayAndSort(state.allIds, action.blogPost.id.toString())
+      };
+    case SET_FILTER_TAGS:
+      return {
+        ...state,
+        filterTags: action.tags
       };
     default:
       return state;
@@ -109,6 +117,13 @@ function storeBlogPost(blogPost) {
   };
 }
 
+function setFilterTags(tags) {
+  return {
+    type: SET_FILTER_TAGS,
+    tags: tags
+  };
+}
+
 export function deleteBlogPost(id) {
   return function(dispatch, getState) {
     dispatch(loadingBlogPosts(true));
@@ -127,7 +142,7 @@ export function deleteBlogPost(id) {
       })
       .then(() => dispatch(removeBlogPost(id)))
       .then(() => dispatch(showToast("Blog post deleted")))
-      .then(() => dispatch(push(`/blog/`)))
+      .then(() => dispatch(push(`/`)))
       .catch(err => {
         dispatch(blogHasErrored(true));
         dispatch(showToast("Delete failed"));
@@ -239,6 +254,72 @@ export function loadBlogPost(id) {
 }
 
 /**
+ * Add the selected tag to the store & to the locations query paramaters
+ * @param {*} location
+ * @param {string} tag
+ */
+export function loadFilterTagsFromURL(location) {
+  return function(dispatch) {
+    const searchParams = new URLSearchParams(location.search);
+    const tags = searchParams.getAll("tags") || [];
+    dispatch(setFilterTags(tags));
+  };
+}
+
+/**
+ * Add the selected tag to the store & to the locations query paramaters
+ * @param {*} location
+ * @param {string} tag
+ */
+export function addFilterTag(location, tag) {
+  return function(dispatch) {
+    const searchParams = new URLSearchParams(location.search);
+    let tags = searchParams.getAll("tags");
+    if (tags.includes(tag)) {
+      return;
+    }
+    searchParams.append("tags", tag);
+    location.search = searchParams.toString();
+    dispatch(push(location));
+    tags = searchParams.getAll("tags");
+    dispatch(setFilterTags(tags));
+  };
+}
+
+/**
+ * Removes the selected tag from the store & the locations query paramaters
+ * @param {*} location
+ * @param {string} removeTag
+ */
+export function removeFilterTag(location, removeTag) {
+  return function(dispatch) {
+    const searchParams = new URLSearchParams(location.search);
+    let tags = searchParams.getAll("tags");
+    searchParams.delete("tags");
+    tags.forEach(tag => {
+      if (tag === removeTag) {
+        return;
+      }
+      searchParams.append("tags", tag);
+    });
+    location.search = searchParams.toString();
+    dispatch(push(location));
+    tags = searchParams.getAll("tags");
+    dispatch(setFilterTags(tags));
+  };
+}
+
+/**
+ * Navigates the the blog post list page & filters by the selected tag
+ */
+
+export function showFilteredBlogPosts(tag) {
+  return function(dispatch) {
+    dispatch(push(`/?tags=${tag}`));
+  };
+}
+
+/**
  * Selectors
  */
 
@@ -262,3 +343,29 @@ export const getBlogPostsSortedByCreatedByDate = createSelector(
       });
   }
 );
+
+export function getFilteredAndSortedBlogPosts(state) {
+  let blogposts = getBlogPostsSortedByCreatedByDate(state);
+  const filterTags = getFilterTags(state);
+
+  if (!filterTags.length) {
+    return blogposts;
+  }
+  // Filter by Tag
+  return blogposts.filter(blogpost => {
+    if (!blogpost.tags) {
+      return false;
+    }
+
+    const blogpostTags = blogpost.tags.map(tag => {
+      return tag.name;
+    });
+    return filterTags.every(filterTag => {
+      return blogpostTags.includes(filterTag);
+    });
+  });
+}
+
+export function getFilterTags(state) {
+  return state.blog.filterTags || [];
+}

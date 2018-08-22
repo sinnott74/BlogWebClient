@@ -1,7 +1,7 @@
 import React from "react";
-import BlogList from "blog/containers/BlogList";
+import BlogList from "../containers/BlogList";
 
-export default class BlogListPage extends React.Component {
+export default class ListBlogPostPage extends React.Component {
   componentDidMount() {
     document.title = "Blog";
   }

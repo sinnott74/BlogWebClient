@@ -8,23 +8,27 @@ import "./BlogList.css";
 export default class BlogList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      filterTags: []
-    };
     this.addFilterTag = this.addFilterTag.bind(this);
     this.removeFilterTag = this.removeFilterTag.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchData();
+    this.props.loadFilterTagsFromURL();
+    this.unlisten = this.props.history.listen(() => {
+      this.props.loadFilterTagsFromURL();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   render() {
     if (this.props.blogPosts.length === 0) {
       return <Spinner />;
     }
-    const filteredBlogPosts = this.filterBlogPosts();
-    const blogPosts = filteredBlogPosts.map(blogPost => {
+    const blogPosts = this.props.blogPosts.map(blogPost => {
       return (
         <BlogListItem
           key={blogPost.id}
@@ -35,48 +39,23 @@ export default class BlogList extends React.Component {
     });
 
     return (
-      <div className="bloglist">
+      <div>
         {this.getFilterTags()}
-        {blogPosts}
+        <div className="bloglist">{blogPosts}</div>
       </div>
     );
   }
 
   addFilterTag(tagName) {
-    if (!this.state.filterTags.includes(tagName)) {
-      this.setState({ filterTags: [...this.state.filterTags, tagName] });
-    }
+    this.props.addFilterTag(tagName);
   }
 
   removeFilterTag(tagName) {
-    this.setState({
-      filterTags: this.state.filterTags.filter(filterTag => {
-        return filterTag !== tagName;
-      })
-    });
-  }
-
-  filterBlogPosts() {
-    if (this.state.filterTags.length) {
-      const filterTags = this.state.filterTags;
-      return this.props.blogPosts.filter(blogpost => {
-        if (!blogpost.tags) {
-          return false;
-        }
-
-        const blogpostTags = blogpost.tags.map(tag => {
-          return tag.name;
-        });
-        return filterTags.every(filterTag => {
-          return blogpostTags.includes(filterTag);
-        });
-      });
-    }
-    return this.props.blogPosts;
+    this.props.removeFilterTag(tagName);
   }
 
   getFilterTags() {
-    const tags = this.state.filterTags.map(tag => {
+    const tags = this.props.filterTags.map(tag => {
       return (
         <TagChip tag={tag} key={tag} onClick={this.removeFilterTag} removable />
       );
@@ -96,7 +75,8 @@ BlogList.propTypes = {
       text: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired,
       author: PropTypes.shape({
-        fullname: PropTypes.string.isRequired
+        firstname: PropTypes.string.isRequired,
+        lastname: PropTypes.string.isRequired
       }),
       user_id: PropTypes.number.isRequired,
       tags: PropTypes.arrayOf(
@@ -106,5 +86,9 @@ BlogList.propTypes = {
         })
       )
     })
-  ).isRequired
+  ).isRequired,
+  filterTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getFilterTags: PropTypes.func.isRequired,
+  addFilterTag: PropTypes.func.isRequired,
+  removeFilterTag: PropTypes.func.isRequired
 };

@@ -10,6 +10,20 @@ import "react-md/lib/Buttons/Button";
 import "react-md/lib/TextFields/TextField";
 import "react-md/lib/Pickers/DatePicker";
 
+let prevLocation = {};
+history.listen(function(location) {
+  // register page view
+  if (window.gtag) {
+    window.gtag("config", "UA-122936407-1");
+  }
+
+  // scroll to top
+  if (prevLocation.pathname !== location.pathname) {
+    window.scrollTo(0, 0);
+  }
+  prevLocation = location;
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

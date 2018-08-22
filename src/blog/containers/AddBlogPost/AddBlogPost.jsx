@@ -16,4 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   handleSave: blogpost => dispatch(addBlogPost(blogpost))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogEditor);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogEditor);

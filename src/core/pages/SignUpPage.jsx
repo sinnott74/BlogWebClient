@@ -140,4 +140,7 @@ const mapDispatchToProps = {
   handleSubmit: signUp
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUpPage);
