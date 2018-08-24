@@ -3,9 +3,6 @@
 $blogpostmargin: 5px;
 .blogpost {
   width: calc(100% - 10px);
-  // max-width: 1024px;
-  // margin-left: auto;
-  // margin-right: auto;
 }
 .blogpost__title {
   text-align: center;
@@ -59,4 +56,12 @@ $blogpostmargin: 5px;
   max-width: 430px;
   color: $primary-color;
   clear: both;
+}
+
+@media (max-width: 700px) {
+  .blogpost {
+    width: calc(100% - 4px);
+    padding-left: 6px;
+    padding-right: 6px;
+  }
 }
