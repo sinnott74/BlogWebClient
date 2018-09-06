@@ -5,7 +5,7 @@ $md-primary-color: $primary-color;
 $md-secondary-color: $md-red-500;
 
 $md-font-size-base: $font-size;
-$md-body-mobile-font-size: $font-size;
+$md-body-mobile-font-size: $font-size * 1px;
 $md-body-desktop-font-size: $font-size;
 $md-text-field-mobile-font-size: $font-size * 1px;
 $md-text-field-desktop-font-size: $font-size * 1px;
@@ -112,6 +112,7 @@ pre {
 code {
   background: #f0f0f0;
   outline: 1px solid #eee;
+  padding: 3px 4px;
 }
 
 // body {
