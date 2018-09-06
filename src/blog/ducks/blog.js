@@ -162,13 +162,14 @@ export function addBlogPost(blogpost) {
       })
     })
       .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
         dispatch(loadingBlogPosts(false));
-        return response;
+        if (!response.ok) {
+          return response.json().then(json => {
+            throw Error(json.message);
+          });
+        }
+        return response.json();
       })
-      .then(response => response.json())
       .then(blogPost => {
         dispatch(storeBlogPost(blogPost));
         blogpost = blogPost;
@@ -178,7 +179,10 @@ export function addBlogPost(blogpost) {
       .catch(err => {
         console.log(err);
         dispatch(blogHasErrored(true));
-        dispatch(showToast("Save failed"));
+        const message = err.message
+          ? `Save failed: ${err.message}`
+          : "Save failed";
+        dispatch(showToast(message));
       });
   };
 }
