@@ -6,6 +6,12 @@ export default [
     exact: true
   },
   {
+    path: "/settings",
+    loader: () =>
+      import(/* webpackChunkName: "SettingsPage" */ "core/pages/SettingsPage"),
+    exact: true
+  },
+  {
     path: "/login",
     loader: () =>
       import(/* webpackChunkName: "LoginPage" */ "core/pages/LoginPage"),

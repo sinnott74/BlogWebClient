@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import HeaderLayout from "core/containers/HeaderLayout";
 import SideNavLayout from "core/containers/SideNavLayout";
 import SideNavPanel from "core/components/SideNavPanel";
@@ -7,14 +7,16 @@ import Toast from "core/containers/Toast";
 import ServiceWorker from "core/containers/ServiceWorker";
 import Routes from "core/components/Routes";
 import ScreenMediaQuery from "core/containers/ScreenMediaQuery";
+import PropTypes from "prop-types";
 
 import "core/components/Card";
 import "./App.css";
 
 export default class App extends React.Component {
   render() {
+    const className = this.props.darkTheme ? "app dark" : "app";
     return (
-      <Fragment>
+      <div className={className}>
         <SideNavLayout sideNavPanel={<SideNavPanel />}>
           <HeaderLayout title="Sinnott">
             <Routes />
@@ -24,7 +26,11 @@ export default class App extends React.Component {
         <Toast />
         <ServiceWorker />
         <ScreenMediaQuery mediaQuery="(min-width: 1025px)" />
-      </Fragment>
+      </div>
     );
   }
 }
+
+App.propTypes = {
+  darkTheme: PropTypes.bool
+};

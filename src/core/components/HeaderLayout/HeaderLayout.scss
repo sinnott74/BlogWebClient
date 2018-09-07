@@ -1,7 +1,6 @@
 @import "core/style/variable";
 .header {
   height: $header-height;
-  color: $text-color-light;
   background: url("../../images//bg-shapes.svg"), $banner-background-gradient;
   position: fixed;
   top: 0;
@@ -18,21 +17,9 @@
   align-content: center;
   z-index: 1;
   transition: left $transition;
+  color: $text-color-light;
 }
 
-.header__menu {
-  opacity: 0.54;
-  transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
-  border: 0;
-  outline: none;
-  color: $text-color-light !important;
-  height: $header-height !important;
-  width: $header-height !important;
-}
-.header__menu:focus,
-.header__menu:hover {
-  opacity: 1;
-}
 @media (min-width: 1025px) {
   .header {
     left: $side-nav-max-width;
@@ -41,8 +28,17 @@
     visibility: hidden;
   }
 }
+
+.header__menu {
+  @extend .header__icon;
+}
 .header__options {
+  @extend .header__icon;
+}
+
+.header__icon {
   opacity: 0.54;
+  transition: none !important;
   transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
   border: 0;
   outline: none;
@@ -50,10 +46,15 @@
   height: $header-height !important;
   width: $header-height !important;
 }
-.header__options:focus,
-.header__options:hover {
+.header__icon:focus,
+.header__icon:hover {
   opacity: 1;
 }
+
+.dark .header__icon {
+  color: $text-color-dark !important;
+}
+
 .header__titlecontainer {
   font-weight: 400;
   font-size: 25px;
@@ -63,6 +64,9 @@
 .header__titletext {
   text-decoration: none;
   color: $text-color-light;
+}
+.dark .header__titletext {
+  color: darken($text-color-dark, 10%);
 }
 
 .header-layout {
