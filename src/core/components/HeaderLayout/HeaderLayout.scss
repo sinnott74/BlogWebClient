@@ -38,6 +38,7 @@
 
 .header__icon {
   opacity: 0.54;
+  transition: none !important;
   transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
   border: 0;
   outline: none;
