@@ -153,12 +153,14 @@ code {
 
 .app {
   color: $text-color-dark;
+}
+
+html {
   background-color: darken($background-color-light, 10%);
 }
 
-.app.dark {
+.dark .app {
   color: $text-color-light;
-  background-color: darken($background-color-dark, 10%);
 }
 
 .dark .md-text {
@@ -171,6 +173,11 @@ code {
 
 span.token.operator {
   background: inherit;
+}
+
+.dark {
+  color: $text-color-light;
+  background: darken($background-color-dark, 10%);
 }
 
 // body {
