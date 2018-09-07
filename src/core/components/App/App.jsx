@@ -14,9 +14,12 @@ import "./App.css";
 
 export default class App extends React.Component {
   render() {
-    const className = this.props.darkTheme ? "app dark" : "app";
+    this.props.darkTheme
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+
     return (
-      <div className={className}>
+      <div className="app">
         <SideNavLayout sideNavPanel={<SideNavPanel />}>
           <HeaderLayout title="Sinnott">
             <Routes />
