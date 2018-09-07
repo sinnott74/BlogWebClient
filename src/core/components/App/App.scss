@@ -141,15 +141,14 @@ pre {
   // outline: 1px solid #eeeeee;
   border-left: 5px solid $primary-color;
 }
-.dark pre {
-  background: lighten($background-color-dark, 10%);
-}
+
 code {
   background: darken($background-color-light, 10%);
   padding: 3px 4px;
 }
+.dark pre,
 .dark code {
-  background: lighten($background-color-dark, 10%);
+  background: lighten($background-color-dark, 5%);
 }
 
 .app {
