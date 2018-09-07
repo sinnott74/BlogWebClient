@@ -10,6 +10,10 @@
   justify-content: flex-start;
 }
 
+.dark .side-nav__link {
+  color: $text-color-light;
+}
+
 .side-nav-link__icon {
   margin: 0 24px;
   line-height: 48px !important;
@@ -17,9 +21,16 @@
 }
 
 .side-nav__link-active,
-.side-nav__link:focus,
-side-nav__link:active {
-  background-color: $background-color;
+.side-nav__link:focus {
+  background-color: darken($background-color-light, 10%);
+}
+
+.dark .side-nav__link-active,
+.dark .side-nav__link:focus {
+  background-color: darken($background-color-dark, 10%);
+}
+.side-nav__link:hover {
+  color: darken($text-color-dark, 50) !important;
 }
 
 .no-decoration {

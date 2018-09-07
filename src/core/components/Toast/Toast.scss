@@ -24,6 +24,10 @@
   transform: translateY(0);
 }
 
+.dark .toast {
+  background-color: darken($background-color-dark, 20%);
+}
+
 .toast .toast__button {
   color: $text-color-light;
 }

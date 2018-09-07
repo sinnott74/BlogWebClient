@@ -13,7 +13,14 @@
   text-decoration: none;
 }
 
+.dark .options-menu_item {
+  color: $text-color-light;
+}
+
 .options-menu_item:hover {
-  background: #555;
-  color: #fff;
+  background: darken($background-color-light, 10%);
+}
+
+.dark .options-menu_item:hover {
+  background: lighten($background-color-dark, 10%);
 }

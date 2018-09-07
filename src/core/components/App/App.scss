@@ -42,7 +42,7 @@ $md-text-field-desktop-font-size: $font-size * 1px;
 @include react-md-pickers;
 @include react-md-progress;
 // @include react-md-select-fields;
-// @include react-md-selection-controls;
+@include react-md-selection-controls;
 // @include react-md-sliders;
 @include react-md-subheaders;
 // @include react-md-snackbars;
@@ -75,6 +75,34 @@ h5 {
   line-height: $font-size * 2.5px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+button,
+input,
+textarea,
+div {
+  color: $text-color-dark;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark p,
+.dark button,
+.dark input,
+.dark textarea,
+.dark div {
+  color: $text-color-light;
+}
+
 .noscroll {
   overflow: hidden;
 }
@@ -98,20 +126,52 @@ blockquote {
 }
 
 blockquote > * {
-  color: #484848;
+  color: lighten($text-color-dark, 10);
+}
+
+.dark blockquote > * {
+  color: darken($text-color-light, 20);
 }
 
 pre {
   padding: 13px;
   overflow-x: auto;
   overflow-y: hidden;
-  background: #f0f0f0;
-  outline: 1px solid #eeeeee;
+  background: darken($background-color-light, 10%);
+  // outline: 1px solid #eeeeee;
   border-left: 5px solid $primary-color;
 }
+.dark pre {
+  background: lighten($background-color-dark, 10%);
+}
 code {
-  background: #f0f0f0;
+  background: darken($background-color-light, 10%);
   padding: 3px 4px;
+}
+.dark code {
+  background: lighten($background-color-dark, 10%);
+}
+
+.app {
+  color: $text-color-dark;
+  background-color: darken($background-color-light, 10%);
+}
+
+.app.dark {
+  color: $text-color-light;
+  background-color: darken($background-color-dark, 10%);
+}
+
+.dark .md-text {
+  color: $text-color-light;
+}
+
+.dark .md-text--secondary {
+  color: $text-color-light;
+}
+
+.token.operator {
+  background: inherit;
 }
 
 // body {
