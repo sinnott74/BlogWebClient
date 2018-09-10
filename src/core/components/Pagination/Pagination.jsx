@@ -13,6 +13,7 @@ export default class Pagination extends React.Component {
 
     this.onPreviousClick = this.onPreviousClick.bind(this);
     this.onNextClick = this.onNextClick.bind(this);
+    this.paginateTopRef = React.createRef();
   }
 
   render() {
@@ -35,7 +36,7 @@ export default class Pagination extends React.Component {
           raised={isCurrent}
           primary={isCurrent}
           className="paginate__buttons-right"
-          onClick={() => this.setState({ currentPage: i })}
+          onClick={() => this.setCurrentPage(i)}
           key={i}
         >
           {i}
@@ -44,7 +45,7 @@ export default class Pagination extends React.Component {
     }
 
     return (
-      <div className="paginate">
+      <div className="paginate" ref={this.paginateTopRef}>
         <div className={this.props.className}>{items}</div>
         <div className="paginate__buttons">
           <Button
@@ -76,21 +77,27 @@ export default class Pagination extends React.Component {
   }
 
   onPreviousClick() {
-    const previousPage = this.state.currentPage - 1;
-    this.setState({
-      currentPage: previousPage
-    });
+    this.setCurrentPage(this.state.currentPage - 1);
   }
 
   onNextClick() {
-    const nextPage = this.state.currentPage + 1;
+    this.setCurrentPage(this.state.currentPage + 1);
+  }
+
+  setCurrentPage(page) {
     this.setState({
-      currentPage: nextPage
+      currentPage: page
     });
+    const paginatClientRect = this.paginateTopRef.current.getBoundingClientRect();
+    window.scrollTo(paginatClientRect.y, paginatClientRect.x);
+    if (this.props.onPageChange) {
+      this.props.onPageChange(page);
+    }
   }
 }
 
 Pagination.propTypes = {
   itemsPerPage: PropTypes.number.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onPageChange: PropTypes.func
 };
