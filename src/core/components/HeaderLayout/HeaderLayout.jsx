@@ -12,6 +12,9 @@ export default class HeaderLayout extends React.Component {
           <Button
             icon
             className="header__menu"
+            tooltipLabel="Menu"
+            tooltipPosition="right"
+            tooltipDelay={1000}
             onClick={this.props.handleMenuButtonClick}
           >
             menu
@@ -24,6 +27,9 @@ export default class HeaderLayout extends React.Component {
           <Button
             icon
             className="header__options"
+            tooltipLabel="Options"
+            tooltipPosition="left"
+            tooltipDelay={1000}
             onClick={this.props.handleOptionsButtonClick}
           >
             more_vert
