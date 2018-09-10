@@ -85,11 +85,12 @@ export default class Pagination extends React.Component {
   }
 
   setCurrentPage(page) {
+    if (page === this.state.currentPage) return;
     this.setState({
       currentPage: page
     });
     const paginatClientRect = this.paginateTopRef.current.getBoundingClientRect();
-    window.scrollTo(paginatClientRect.y, paginatClientRect.x);
+    window.scrollTo(paginatClientRect.x, paginatClientRect.y);
     if (this.props.onPageChange) {
       this.props.onPageChange(page);
     }
