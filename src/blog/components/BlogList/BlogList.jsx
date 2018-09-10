@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import BlogListItem from "blog/components/BlogListItem";
 import Spinner from "core/components/Spinner";
 import TagChip from "blog/components/TagChip";
+import Pagination from "core/components/Pagination";
 import "./BlogList.css";
 
 export default class BlogList extends React.Component {
@@ -39,10 +40,12 @@ export default class BlogList extends React.Component {
     });
 
     return (
-      <div>
+      <React.Fragment>
         {this.getFilterTags()}
-        <div className="bloglist">{blogPosts}</div>
-      </div>
+        <Pagination itemsPerPage={8} className="bloglist">
+          {blogPosts}
+        </Pagination>
+      </React.Fragment>
     );
   }
 
@@ -88,7 +91,6 @@ BlogList.propTypes = {
     })
   ).isRequired,
   filterTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  getFilterTags: PropTypes.func.isRequired,
   addFilterTag: PropTypes.func.isRequired,
   removeFilterTag: PropTypes.func.isRequired
 };
