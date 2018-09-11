@@ -27,7 +27,7 @@ export default class Pagination extends React.Component {
       this.state.currentPage * itemsPerPage
     );
 
-    let pageButtons = [];
+    const pageButtons = [];
     for (let i = 1; i <= numPages; i++) {
       const isCurrent = i === this.state.currentPage ? true : false;
       pageButtons.push(
@@ -35,7 +35,7 @@ export default class Pagination extends React.Component {
           flat={!isCurrent}
           raised={isCurrent}
           primary={isCurrent}
-          className="paginate__buttons-right"
+          className="paginate__button"
           onClick={() => this.setCurrentPage(i)}
           key={i}
         >
@@ -49,28 +49,27 @@ export default class Pagination extends React.Component {
         <div className={this.props.className}>{items}</div>
         <div className="paginate__buttons">
           <Button
-            icon
-            className="paginate__buttons-left"
+            flat
+            iconBefore={false}
+            iconChildren="chevron_left"
+            className="paginate__button-left"
             tooltipLabel="Previous"
             tooltipPosition="top"
             tooltipDelay={1000}
             disabled={leftDisabled}
             onClick={this.onPreviousClick}
-          >
-            chevron_left
-          </Button>
+          />
           <div className="paginate__numbuttons">{pageButtons}</div>
           <Button
-            icon
-            className="paginate__buttons-right"
+            flat
+            iconChildren="chevron_right"
+            className="paginate__button-right"
             tooltipLabel="Next"
             tooltipPosition="top"
             tooltipDelay={1000}
             disabled={rightDisabled}
             onClick={this.onNextClick}
-          >
-            chevron_right
-          </Button>
+          />
         </div>
       </div>
     );
@@ -89,8 +88,8 @@ export default class Pagination extends React.Component {
     this.setState({
       currentPage: page
     });
-    const paginatClientRect = this.paginateTopRef.current.getBoundingClientRect();
-    window.scrollTo(paginatClientRect.x, paginatClientRect.y);
+    const paginateClientRect = this.paginateTopRef.current.getBoundingClientRect();
+    window.scrollTo(paginateClientRect.x, paginateClientRect.y);
     if (this.props.onPageChange) {
       this.props.onPageChange(page);
     }
@@ -100,5 +99,6 @@ export default class Pagination extends React.Component {
 Pagination.propTypes = {
   itemsPerPage: PropTypes.number.isRequired,
   className: PropTypes.string,
-  onPageChange: PropTypes.func
+  onPageChange: PropTypes.func,
+  children: PropTypes.arrayOf(PropTypes.node).isRequired
 };
