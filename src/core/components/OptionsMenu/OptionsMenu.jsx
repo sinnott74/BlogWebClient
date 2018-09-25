@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OptionsMenuItem from "core/components/OptionsMenuItem";
+import classnames from "classnames";
 import "./OptionsMenu.css";
 
 export default class OptionsMenu extends React.Component {
@@ -8,16 +9,15 @@ export default class OptionsMenu extends React.Component {
     this.setDocumentScroll();
     return (
       <div
-        className={
-          "options-menu " + (this.props.opened ? "options-menu__opened" : "")
-        }
+        className={classnames("options-menu", {
+          "options-menu__opened": this.props.opened
+        })}
       >
         <div className="options-scrim" onClick={this.props.handleScrimClick} />
         <aside
-          className={
-            "options-view " +
-            (this.props.opened ? "options-view__animate" : null)
-          }
+          className={classnames("options-view", {
+            "options-view__animate": this.props.opened
+          })}
         >
           {this._getLogOptionItem()}
         </aside>

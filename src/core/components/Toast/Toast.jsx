@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "react-md/lib/Buttons/Button";
+import classnames from "classnames";
 import "./Toast.css";
 
 export default class Toast extends React.Component {
@@ -8,7 +9,7 @@ export default class Toast extends React.Component {
     return (
       <div
         role="alert"
-        className={"toast " + (this.props.showing ? "toast__opened" : "")}
+        className={classnames("toast", { toast__opened: this.props.showing })}
       >
         <div className="toast__message">{this.props.message}</div>
         <Button
