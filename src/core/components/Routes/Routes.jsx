@@ -72,7 +72,11 @@ function getLoadableComponent(loader) {
 }
 
 const Routes = props => {
-  return <Switch className="main">{dynamicRoutes}</Switch>;
+  return (
+    <div className="main" role="main">
+      <Switch>{dynamicRoutes}</Switch>
+    </div>
+  );
 };
 
 export default Routes;

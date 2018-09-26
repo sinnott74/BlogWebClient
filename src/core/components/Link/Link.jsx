@@ -13,6 +13,7 @@ const Link = props => {
       style={props.style}
       exact={props.exact}
       onClick={props.handleClick}
+      title={props.title}
       to={{
         pathname: props.to,
         state: {
@@ -30,7 +31,8 @@ Link.propTypes = {
   className: PropTypes.string,
   activeClassName: PropTypes.string,
   exact: PropTypes.bool,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  title: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -23,9 +23,14 @@ class BlogListItem extends React.PureComponent {
           to={`/blog/${this.props.id}`}
           className="bloglistitem__link blogpostitem__image"
           style={imageStyle}
+          title={this.props.title}
         />
         <div className="bloglistitem__heading">
-          <Link to={`/blog/${this.props.id}`} className="bloglistitem__link">
+          <Link
+            to={`/blog/${this.props.id}`}
+            className="bloglistitem__link"
+            title={this.props.title}
+          >
             <h2 className="bloglistitem__title">{this.props.title}</h2>
           </Link>
           <div className="bloglistitem__date">{this.props.date}</div>

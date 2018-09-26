@@ -8,7 +8,7 @@ export default class HeaderLayout extends React.Component {
   render() {
     return (
       <div className="header-layout">
-        <div className="header">
+        <div className="header" role="banner">
           <Button
             icon
             className="header__menu"
