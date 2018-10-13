@@ -1,8 +1,10 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, withRouter } from "react-router";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Loadable from "react-loadable";
 import Spinner from "core/components/Spinner";
 import AuthenticatedRoute from "core/containers/AuthenticatedRoute";
+import "./Routes.css";
 
 /**
  * Import all route pages
@@ -74,9 +76,19 @@ function getLoadableComponent(loader) {
 const Routes = props => {
   return (
     <div className="main" role="main">
-      <Switch>{dynamicRoutes}</Switch>
+      <TransitionGroup className="transition-group">
+        <CSSTransition
+          key={props.location.key}
+          timeout={{ enter: 150, exit: 150 }}
+          classNames="fade"
+        >
+          <div className="routes">
+            <Switch location={props.location}>{dynamicRoutes}</Switch>
+          </div>
+        </CSSTransition>
+      </TransitionGroup>
     </div>
   );
 };
 
-export default Routes;
+export default withRouter(Routes);
