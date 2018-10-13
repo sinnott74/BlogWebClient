@@ -79,8 +79,9 @@ const Routes = props => {
       <TransitionGroup className="transition-group">
         <CSSTransition
           key={props.location.key}
-          timeout={{ enter: 150, exit: 150 }}
+          timeout={{ enter: 150 }}
           classNames="fade"
+          exit={false}
         >
           <div className="routes">
             <Switch location={props.location}>{dynamicRoutes}</Switch>
