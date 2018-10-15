@@ -32,6 +32,9 @@ export default class SideNavPanel extends React.Component {
             {/* <SideNavLink to="/code" icon="code">
               Code
             </SideNavLink> */}
+            <SideNavLink to="/todo" icon="cloud_done">
+              Todo
+            </SideNavLink>
           </div>
           <div className="sidenavpanel__contentbottom">
             <PersonalLinks />
