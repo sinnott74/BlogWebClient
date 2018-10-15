@@ -207,7 +207,7 @@ export function editTodo(todo) {
 export function loadTodos() {
   return function(dispatch, getState) {
     dispatch(loadingTodos(true));
-    fetch(`${SERVER_PATH}/api/todos`, {
+    fetch(`${SERVER_PATH}/api/todos/`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
