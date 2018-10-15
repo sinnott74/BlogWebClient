@@ -10,6 +10,10 @@ The supplied `nginx.conf` file overwrites the default static buildpack version. 
 
 When building in docker, this process is mimicked by `docker-entrypoint.sh` which replaces each EnvVar. The `Dockerfile` then specifies the Envs to be used in the replacement.
 
+## React
+
+When running the webclient in developement mode `yarn start-dev`, the `proxy`s in the `package.json` needs to be kept up to date with the various services running.
+
 ---
 
-`nginx.conf`, `docker-entrypoint.sh` & `Dockerfile` all need to be kept in sync.
+`nginx.conf`, `docker-entrypoint.sh`, `Dockerfile` & `package.json` all need to be kept in sync.

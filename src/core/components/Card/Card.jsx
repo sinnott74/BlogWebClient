@@ -6,7 +6,9 @@ import "./Card.css";
 // Functional Component
 const Card = props => {
   return (
-    <div className={classnames("card", props.className)}>{props.children}</div>
+    <div {...props} className={classnames("card", props.className)}>
+      {props.children}
+    </div>
   );
 };
 

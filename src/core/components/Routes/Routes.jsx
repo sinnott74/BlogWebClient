@@ -33,7 +33,18 @@ function flatten(array) {
 /**
  * Combine the page configurations
  */
-const routesConfigs = flatten(pages);
+let routesConfigs = flatten(pages);
+
+// Sort routConfigs by longest path
+routesConfigs = routesConfigs.sort((a, b) => {
+  if (!a.path) {
+    return 1;
+  }
+  if (!b.path) {
+    return -1;
+  }
+  return b.path.length - a.path.length;
+});
 
 // const pageRouteConfigs = routesConfigs.filter(routeConfig => {
 //   return !routeConfig.modal;

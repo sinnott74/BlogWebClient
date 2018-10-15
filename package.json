@@ -14,6 +14,10 @@
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "proxy": {
+    "/api/todos": {
+      "target": "http://localhost:8000",
+      "secure": false
+    },
     "/api/*": {
       "target": "http://localhost:8080",
       "secure": false
