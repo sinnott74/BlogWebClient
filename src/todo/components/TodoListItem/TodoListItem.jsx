@@ -78,10 +78,9 @@ export default class TodoListItem extends React.Component {
       id: this.state.id,
       text: this.state.text,
       username: this.state.username,
-      completed: this.state.completed
+      completed: this.state.completed,
+      created_on: this.state.created_on
     });
-
-    // XHR to update server state
   }
 
   getText() {
@@ -104,7 +103,6 @@ export default class TodoListItem extends React.Component {
           }}
           onChange={(text, e) => {
             this.setState({
-              ...this.state,
               text
             });
           }}
