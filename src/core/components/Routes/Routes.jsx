@@ -36,6 +36,7 @@ function flatten(array) {
 let routesConfigs = flatten(pages);
 
 // Sort routConfigs by longest path
+// Paths without variables are listed before paths with variable
 routesConfigs = routesConfigs.sort((a, b) => {
   if (!a.path) {
     return 1;
@@ -43,6 +44,17 @@ routesConfigs = routesConfigs.sort((a, b) => {
   if (!b.path) {
     return -1;
   }
+
+  let aHasVariable = a.path.includes(":");
+  let bHasVariable = b.path.includes(":");
+  if (aHasVariable && !bHasVariable) {
+    return 1;
+  }
+
+  if (!aHasVariable && bHasVariable) {
+    return -1;
+  }
+
   return b.path.length - a.path.length;
 });
 
