@@ -16,16 +16,12 @@
 }
 
 .todo_item-deletebtn {
-  visibility: hidden;
   transition: none !important;
 }
 
 .todo_item-deletebtn:focus,
 .todo_item-deletebtn:hover {
   color: red;
-}
-.todo_item:hover .todo_item-deletebtn {
-  visibility: visible;
 }
 
 .todo_item-canceldeletebtn {
