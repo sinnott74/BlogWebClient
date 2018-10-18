@@ -12,26 +12,30 @@ export default class TodoListItem extends React.Component {
     super();
 
     this.state = {
-      inEdit: false,
+      isEditing: false,
+      isDeleting: false,
       ...props
     };
 
     this.updateTodo = this.updateTodo.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleCancelDelete = this.handleCancelDelete.bind(this);
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleCompletedCheckboxChange = this.handleCompletedCheckboxChange.bind(
       this
     );
   }
   render() {
     const todoClasses = classnames("todo_item", {
-      "todo_item-completed": this.state.completed && !this.state.inEdit
+      "todo_item-completed": this.state.completed && !this.state.isEditing
     });
 
     return (
       <Card
         className={todoClasses}
         onDoubleClick={() => {
-          this.setState({ inEdit: true });
+          this.setState({ isEditing: true });
         }}
       >
         <Checkbox
@@ -43,24 +47,15 @@ export default class TodoListItem extends React.Component {
           onChange={this.handleCompletedCheckboxChange}
         />
         {this.getText()}
-        {!this.state.inEdit && (
-          <Button
-            icon
-            className="todo_item-deletebtn"
-            tooltipLabel="Delete"
-            tooltipPosition="left"
-            tooltipDelay={1000}
-            onClick={this.handleDeleteClick}
-          >
-            delete
-          </Button>
-        )}
+        {!this.state.isEditing && this.getDelete()}
       </Card>
     );
   }
 
   handleDeleteClick() {
-    this.props.onDelete(this.state.id);
+    this.setState({
+      isDeleting: true
+    });
   }
 
   handleCompletedCheckboxChange(value, e) {
@@ -73,7 +68,7 @@ export default class TodoListItem extends React.Component {
   }
 
   updateTodo() {
-    this.setState({ inEdit: false });
+    this.setState({ isEditing: false });
     this.props.onUpdate({
       id: this.state.id,
       text: this.state.text,
@@ -84,7 +79,7 @@ export default class TodoListItem extends React.Component {
   }
 
   getText() {
-    if (this.state.inEdit) {
+    if (this.state.isEditing) {
       return (
         <TextField
           id={"text" + this.state.id}
@@ -94,6 +89,7 @@ export default class TodoListItem extends React.Component {
           required
           value={this.state.text}
           autoComplete="off"
+          maxLength={100}
           autoFocus
           onBlur={this.updateTodo}
           onKeyUp={e => {
@@ -101,16 +97,74 @@ export default class TodoListItem extends React.Component {
               this.updateTodo();
             }
           }}
-          onChange={(text, e) => {
-            this.setState({
-              text
-            });
-          }}
+          onChange={this.handleTextChange}
         />
       );
     } else {
       return <div className="todo_item-text">{this.state.text}</div>;
     }
+  }
+
+  getDelete() {
+    if (!this.state.isDeleting) {
+      return (
+        <Button
+          icon
+          className="todo_item-deletebtn"
+          tooltipLabel="Delete"
+          tooltipPosition="left"
+          tooltipDelay={1000}
+          onClick={this.handleDeleteClick}
+        >
+          delete
+        </Button>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <Button
+            flat
+            className="todo_item-confirmdeletebtn"
+            tooltipLabel="Confirm deletion"
+            tooltipPosition="top"
+            tooltipDelay={1000}
+            onClick={this.handleConfirmDelete}
+          >
+            Confirm
+          </Button>
+          <span>or</span>
+          <Button
+            flat
+            className="todo_item-canceldeletebtn"
+            tooltipLabel="Cancel deletion"
+            tooltipPosition="top"
+            tooltipDelay={1000}
+            onClick={this.handleCancelDelete}
+          >
+            Cancel
+          </Button>
+        </React.Fragment>
+      );
+    }
+  }
+
+  handleCancelDelete() {
+    this.setState({
+      isDeleting: false
+    });
+  }
+
+  handleConfirmDelete() {
+    this.props.onDelete(this.state.id);
+  }
+
+  handleTextChange(text, e) {
+    if (text.length >= 100) {
+      return;
+    }
+    this.setState({
+      text
+    });
   }
 }
 

@@ -11,7 +11,8 @@
 }
 
 .todo_item-text {
-  flex: 8;
+  flex-grow: 1;
+  overflow-x: scroll;
 }
 
 .todo_item-deletebtn {
@@ -25,4 +26,11 @@
 }
 .todo_item:hover .todo_item-deletebtn {
   visibility: visible;
+}
+
+.todo_item-canceldeletebtn {
+}
+
+.todo_item-confirmdeletebtn {
+  color: red;
 }
