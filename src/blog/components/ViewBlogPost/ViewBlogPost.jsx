@@ -15,6 +15,7 @@ import "prismjs/components/prism-java";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-go";
+import "prismjs/components/prism-docker";
 
 export default class ViewBlogPost extends React.Component {
   componentDidMount() {}
