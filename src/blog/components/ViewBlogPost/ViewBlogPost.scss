@@ -59,6 +59,14 @@ $blogpostmargin: 5px;
   clear: both;
 }
 
+.dark .blogpost__text tr:nth-child(odd) {
+  background: lighten($background-color-dark, 5%);
+}
+
+.blogpost__text tr:nth-child(odd) {
+  background: darken($background-color-light, 10%);
+}
+
 @media (max-width: 700px) {
   .blogpost {
     width: calc(100% - 4px);
