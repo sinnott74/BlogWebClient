@@ -24,7 +24,7 @@ export default class TodoForm extends React.Component {
             id={"text" + this.state.id}
             type="text"
             name="Todotext"
-            placeholder="What do you have to do?"
+            label="What do you have to do?"
             required
             value={this.state.text}
             autoComplete="off"

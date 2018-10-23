@@ -111,7 +111,7 @@ export default class TodoListItem extends React.Component {
           id={"text" + this.state.id}
           type="text"
           name="todo text"
-          placeholder="todo text"
+          placeholder="What do you have to do?"
           required
           value={this.state.text}
           autoComplete="off"
