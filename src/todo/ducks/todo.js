@@ -249,10 +249,16 @@ export const getTodosSortedByCreatedByDate = createSelector(
         return byID[id];
       })
       .sort((o1, o2) => {
-        const d1 = new Date(o1.created_on);
-        const d2 = new Date(o2.created_on);
-        // Latest to earliest
-        return d2 - d1;
+        if (o1.flagged && o2.flagged) {
+          const d1 = new Date(o1.created_on);
+          const d2 = new Date(o2.created_on);
+          // Latest to earliest
+          return d2 - d1;
+        } else if (o1.flagged) {
+          return -1;
+        } else {
+          return 1;
+        }
       });
   }
 );

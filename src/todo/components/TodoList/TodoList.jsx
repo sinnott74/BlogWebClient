@@ -28,7 +28,8 @@ TodoList.propTypes = {
       text: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
-      created_on: PropTypes.string.isRequired
+      created_on: PropTypes.string.isRequired,
+      flagged: PropTypes.bool.isRequired
     })
   )
 };

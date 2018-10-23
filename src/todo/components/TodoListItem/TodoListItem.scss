@@ -1,3 +1,4 @@
+@import "core/style/variable";
 .todo_item {
   width: 100%;
   display: flex;
@@ -12,4 +13,8 @@
 
 .todo_item-completed .todo_item-text {
   text-decoration: line-through;
+}
+
+.todo_item-flagged .todo_item-flagcheckbox {
+  color: $primary-color !important;
 }
