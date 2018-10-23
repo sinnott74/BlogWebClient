@@ -12,6 +12,7 @@ export default class TodoForm extends React.Component {
     this.state = { text: "" };
 
     this.handleAddTodo = this.handleAddTodo.bind(this);
+    this.handleUpdateText = this.handleUpdateText.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,11 +29,8 @@ export default class TodoForm extends React.Component {
             value={this.state.text}
             autoComplete="off"
             autoFocus
-            onChange={(text, e) => {
-              this.setState({
-                text
-              });
-            }}
+            maxLength={100}
+            onChange={this.handleUpdateText}
           />
           <Button
             icon
@@ -48,6 +46,16 @@ export default class TodoForm extends React.Component {
       </Card>
     );
   }
+
+  handleUpdateText(text, e) {
+    if (text.length >= 100) {
+      return;
+    }
+    this.setState({
+      text
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.handleAddTodo();
