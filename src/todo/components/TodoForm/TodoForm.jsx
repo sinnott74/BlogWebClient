@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Card from "core/components/Card";
 import TextField from "react-md/lib/TextFields/TextField";
 import Button from "react-md/lib/Buttons/Button";
 import "./TodoForm.css";
