@@ -2,12 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  // justify-content: space-around;
   align-items: center;
-}
-
-.todo_item-completed {
-  text-decoration: line-through;
 }
 
 .todo_item-text {
@@ -15,18 +10,6 @@
   overflow-x: scroll;
 }
 
-.todo_item-deletebtn {
-  transition: none !important;
-}
-
-.todo_item-deletebtn:focus,
-.todo_item-deletebtn:hover {
-  color: red;
-}
-
-.todo_item-canceldeletebtn {
-}
-
-.todo_item-confirmdeletebtn {
-  color: red !important;
+.todo_item-completed .todo_item-text {
+  text-decoration: line-through;
 }

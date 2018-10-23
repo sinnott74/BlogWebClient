@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import Card from "core/components/Card";
 import Checkbox from "react-md/lib/SelectionControls/Checkbox";
-import Button from "react-md/lib/Buttons/Button";
 import TextField from "react-md/lib/TextFields/TextField";
 import classnames from "classnames";
+import TodoDeleteButton from "todo/components/TodoDeleteButton";
 import "./TodoListItem.css";
 
 export default class TodoListItem extends React.Component {
@@ -18,9 +18,7 @@ export default class TodoListItem extends React.Component {
     };
 
     this.updateTodo = this.updateTodo.bind(this);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleCancelDelete = this.handleCancelDelete.bind(this);
-    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleCompletedCheckboxChange = this.handleCompletedCheckboxChange.bind(
       this
@@ -47,15 +45,15 @@ export default class TodoListItem extends React.Component {
           onChange={this.handleCompletedCheckboxChange}
         />
         {this.getText()}
-        {!this.state.isEditing && this.getDelete()}
+        {!this.state.isEditing && (
+          <TodoDeleteButton onDelete={this.handleDelete} />
+        )}
       </Card>
     );
   }
 
-  handleDeleteClick() {
-    this.setState({
-      isDeleting: true
-    });
+  handleDelete() {
+    this.props.onDelete(this.state.id);
   }
 
   handleCompletedCheckboxChange(value, e) {
@@ -103,59 +101,6 @@ export default class TodoListItem extends React.Component {
     } else {
       return <div className="todo_item-text">{this.state.text}</div>;
     }
-  }
-
-  getDelete() {
-    if (!this.state.isDeleting) {
-      return (
-        <Button
-          icon
-          className="todo_item-deletebtn"
-          tooltipLabel="Delete"
-          tooltipPosition="left"
-          tooltipDelay={1000}
-          onClick={this.handleDeleteClick}
-        >
-          delete
-        </Button>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <Button
-            flat
-            className="todo_item-confirmdeletebtn"
-            tooltipLabel="Confirm deletion"
-            tooltipPosition="top"
-            tooltipDelay={1000}
-            onClick={this.handleConfirmDelete}
-          >
-            Confirm
-          </Button>
-          <span>or</span>
-          <Button
-            flat
-            className="todo_item-canceldeletebtn"
-            tooltipLabel="Cancel deletion"
-            tooltipPosition="top"
-            tooltipDelay={1000}
-            onClick={this.handleCancelDelete}
-          >
-            Cancel
-          </Button>
-        </React.Fragment>
-      );
-    }
-  }
-
-  handleCancelDelete() {
-    this.setState({
-      isDeleting: false
-    });
-  }
-
-  handleConfirmDelete() {
-    this.props.onDelete(this.state.id);
   }
 
   handleTextChange(text, e) {

@@ -1,0 +1,22 @@
+.tododeletebtn {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.tododeletebtn-delete {
+  transition: none !important;
+}
+
+.tododeletebtn-delete:focus,
+.tododeletebtn-delete:hover {
+  color: red;
+}
+
+.tododeletebtn-cancel {
+}
+
+.tododeletebtn-confirm {
+  color: red !important;
+}
