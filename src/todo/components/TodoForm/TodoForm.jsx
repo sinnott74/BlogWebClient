@@ -18,7 +18,7 @@ export default class TodoForm extends React.Component {
 
   render() {
     return (
-      <Card className="todoform">
+      <div className="todoform">
         <form className="todoform_form" onSubmit={this.handleSubmit}>
           <TextField
             id={"text" + this.state.id}
@@ -34,7 +34,7 @@ export default class TodoForm extends React.Component {
           />
           <Button
             icon
-            className="todo-addbtn"
+            className="todoform-addbtn"
             tooltipLabel="Add Todo"
             tooltipPosition="left"
             tooltipDelay={1000}
@@ -43,7 +43,7 @@ export default class TodoForm extends React.Component {
             add
           </Button>
         </form>
-      </Card>
+      </div>
     );
   }
 

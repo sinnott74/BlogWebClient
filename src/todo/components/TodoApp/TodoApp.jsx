@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import TodoList from "todo/components/TodoList";
 import TodoForm from "todo/components/TodoForm";
+import TodoAdd from "todo/components/TodoAdd";
 import "./TodoApp.css";
 
 export default class TodoApp extends React.Component {
@@ -13,14 +14,18 @@ export default class TodoApp extends React.Component {
     return (
       <div className="todo">
         <h1 className="todo-title">Todos</h1>
-        <TodoForm
+        {/* <TodoForm
           onAddTodo={this.props.onTodoAdd}
           username={this.props.username}
-        />
+        /> */}
         <TodoList
           todos={this.props.todos}
           onTodoUpdate={this.props.onTodoUpdate}
           onTodoDelete={this.props.onTodoDelete}
+        />
+        <TodoAdd
+          onTodoAdd={this.props.onTodoAdd}
+          username={this.props.username}
         />
       </div>
     );
