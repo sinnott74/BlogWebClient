@@ -6,7 +6,6 @@ import "./OptionsMenu.css";
 
 export default class OptionsMenu extends React.Component {
   render() {
-    this.setDocumentScroll();
     return (
       <div
         className={classnames("options-menu", {
@@ -23,14 +22,6 @@ export default class OptionsMenu extends React.Component {
         </aside>
       </div>
     );
-  }
-
-  setDocumentScroll() {
-    if (this.props.opened) {
-      document.body.classList.add("noscroll");
-    } else {
-      document.body.classList.remove("noscroll");
-    }
   }
 
   _getLogOptionItem() {
