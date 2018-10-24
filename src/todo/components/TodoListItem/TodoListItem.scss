@@ -9,7 +9,7 @@
 
 .todo_item-text {
   flex-grow: 1;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .todo_item-completed .todo_item-text {
