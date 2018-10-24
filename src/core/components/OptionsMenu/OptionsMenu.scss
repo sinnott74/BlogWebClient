@@ -37,7 +37,7 @@
 
 .options-view {
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 100%;
   transition: transform 0.1s ease-out;
   transform-origin: 0 0;
