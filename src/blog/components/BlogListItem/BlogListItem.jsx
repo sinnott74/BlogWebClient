@@ -9,7 +9,7 @@ class BlogListItem extends React.PureComponent {
   render() {
     const imageStyle = this.props.imageurl
       ? {
-          backgroundImage: "url(" + this.props.imageurl + ")"
+          backgroundImage: `url(${this.props.imageurl})`
         }
       : {};
 
