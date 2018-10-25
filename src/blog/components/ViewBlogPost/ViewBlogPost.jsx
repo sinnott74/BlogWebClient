@@ -1,22 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import marked from "marked";
 import Link from "core/components/Link";
 import Button from "react-md/lib/Buttons/Button";
 import Card from "core/components/Card";
-import "blog/components/TagChip";
-import "./ViewBlogPost.css";
 import TagChip from "blog/components/TagChip";
-
-// Prism
-import Prism from "prismjs";
-import "prismjs/themes/prism-coy.css";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-go";
-import "prismjs/components/prism-docker";
-import "prismjs/components/prism-yaml";
+import Markdown from "core/components/Markdown";
+import "./ViewBlogPost.css";
 
 export default class ViewBlogPost extends React.Component {
   componentDidMount() {}
@@ -40,31 +29,10 @@ export default class ViewBlogPost extends React.Component {
         )}
         {this.props.tags && this.getTags()}
         {img}
-        <div
-          className="blogpost__text"
-          dangerouslySetInnerHTML={this.rawMarkup()}
-        />
+        <Markdown markdown={this.props.text} className="blogpost__text" />
         {this.props.showActions && this.getActions()}
       </Card>
     );
-  }
-
-  rawMarkup() {
-    if (this.props.text) {
-      const rawMarkup = marked(this.props.text, {
-        sanitize: true,
-        gfm: true,
-        tables: true,
-        // langPrefix: "language-",
-        highlight: function(code, lang) {
-          if (Prism.languages[lang]) {
-            const grammar = Prism.languages[lang];
-            return Prism.highlight(code, grammar, lang);
-          }
-        }
-      });
-      return { __html: rawMarkup };
-    }
   }
 
   getActions() {
