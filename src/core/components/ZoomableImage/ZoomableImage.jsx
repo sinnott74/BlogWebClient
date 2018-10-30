@@ -47,6 +47,10 @@ export default class ZoomableImage extends React.Component {
           title={this.props.title}
           onClick={this.onOpen}
         />
+        <div className="zoomableimage__subtext">
+          <div>{this.props.title}</div>
+          <div>(Click to zoom)</div>
+        </div>
       </div>
     );
   }

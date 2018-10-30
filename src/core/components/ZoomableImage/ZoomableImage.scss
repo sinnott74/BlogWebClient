@@ -2,7 +2,6 @@
 
 .zoomableimage {
   background-color: transparent;
-  cursor: zoom-in;
 }
 
 .zoomableimage-fullscreen.zoomableimage {
@@ -30,6 +29,7 @@
   transition: background-color 400ms linear;
   max-width: 1000px;
   width: 100%;
+  cursor: zoom-in;
 }
 
 .zoomableimage-fullscreen .zoomableimage__button {
@@ -39,4 +39,12 @@
   top: 0;
   position: absolute;
   color: $text-color-light;
+}
+
+.zoomableimage__subtext {
+  text-align: center;
+}
+
+.zoomableimage-fullscreen .zoomableimage__subtext {
+  display: none;
 }
