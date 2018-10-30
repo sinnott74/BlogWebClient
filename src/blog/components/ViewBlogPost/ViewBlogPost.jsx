@@ -17,6 +17,7 @@ export default class ViewBlogPost extends React.Component {
         className="blogpost__image"
         src={this.props.imageurl}
         alt={this.props.title}
+        title={this.props.title}
       />
     ) : null;
 
