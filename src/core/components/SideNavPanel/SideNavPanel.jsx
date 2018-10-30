@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import SideNavLink from "core/components/SideNavLink";
 import PersonalLinks from "core/components/PersonalLinks";
 import { version } from "../../../../package.json";
@@ -29,12 +30,11 @@ export default class SideNavPanel extends React.Component {
             <SideNavLink to="/settings" icon="settings">
               Settings
             </SideNavLink>
-            {/* <SideNavLink to="/code" icon="code">
-              Code
-            </SideNavLink> */}
-            <SideNavLink to="/todo" icon="cloud_done">
-              Todo
-            </SideNavLink>
+            {this.props.isLoggedIn && (
+              <SideNavLink to="/todo" icon="cloud_done">
+                Todo
+              </SideNavLink>
+            )}
           </div>
           <div className="sidenavpanel__contentbottom">
             <PersonalLinks />
@@ -45,3 +45,7 @@ export default class SideNavPanel extends React.Component {
     );
   }
 }
+
+SideNavPanel.propTypes = {
+  isLoggedIn: PropTypes.bool
+};

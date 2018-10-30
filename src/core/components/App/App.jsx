@@ -20,7 +20,9 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <SideNavLayout sideNavPanel={<SideNavPanel />}>
+        <SideNavLayout
+          sideNavPanel={<SideNavPanel isLoggedIn={this.props.isLoggedIn} />}
+        >
           <HeaderLayout title="Sinnott">
             <Routes />
             <OptionsMenu />
@@ -35,5 +37,6 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  darkTheme: PropTypes.bool
+  darkTheme: PropTypes.bool,
+  isLoggedIn: PropTypes.bool
 };
