@@ -5,6 +5,7 @@ import Button from "react-md/lib/Buttons/Button";
 import Card from "core/components/Card";
 import TagChip from "blog/components/TagChip";
 import Markdown from "core/components/Markdown";
+import ZoomableImage from "core/components/ZoomableImage";
 import "./ViewBlogPost.css";
 
 export default class ViewBlogPost extends React.Component {
@@ -12,7 +13,7 @@ export default class ViewBlogPost extends React.Component {
 
   render() {
     const img = this.props.imageurl ? (
-      <img
+      <ZoomableImage
         className="blogpost__image"
         src={this.props.imageurl}
         alt={this.props.title}
@@ -29,10 +30,18 @@ export default class ViewBlogPost extends React.Component {
         )}
         {this.props.tags && this.getTags()}
         {img}
-        <Markdown markdown={this.props.text} className="blogpost__text" />
+        <Markdown
+          markdown={this.props.text}
+          className="blogpost__text"
+          image={this.imageRenderer}
+        />
         {this.props.showActions && this.getActions()}
       </Card>
     );
+  }
+
+  imageRenderer(src, title, alt) {
+    return <ZoomableImage src={src} title={title} alt={alt} />;
   }
 
   getActions() {

@@ -2,6 +2,7 @@
 
 $blogpostmargin: 5px;
 .blogpost {
+  position: relative;
   width: calc(100% - 10px);
 }
 .blogpost__title {
@@ -14,8 +15,11 @@ $blogpostmargin: 5px;
   text-align: center;
   width: calc(100% - 2vh);
 }
+.blogpost_tags {
+  margin-bottom: 2vw;
+}
 .blogpost__image {
-  margin-top: 2vw;
+  // margin-top: 2vw;
   width: 100%;
 }
 .blogpost__text {

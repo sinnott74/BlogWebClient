@@ -1,0 +1,42 @@
+@import "core/style/variable";
+
+.zoomableimage {
+  background-color: transparent;
+  cursor: zoom-in;
+}
+
+.zoomableimage-fullscreen.zoomableimage {
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  transition: background-color 200ms linear;
+  cursor: default;
+}
+
+.zoomableimage__button {
+  display: none;
+  background-color: black;
+}
+
+.zoomableimage img {
+  transition: background-color 400ms linear;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.zoomableimage-fullscreen .zoomableimage__button {
+  position: fixed;
+  display: block;
+  right: 0;
+  top: 0;
+  position: absolute;
+  color: $text-color-light;
+}
