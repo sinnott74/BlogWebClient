@@ -1,7 +1,6 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Route, Switch, withRouter } from "react-router";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import Loadable from "react-loadable";
 import Spinner from "core/components/Spinner";
 import AuthenticatedRoute from "core/containers/AuthenticatedRoute";
 import "./Routes.css";
@@ -90,10 +89,11 @@ const dynamicRoutes = routesConfigs.map((routeConfig, index) => {
  * @param {} loader
  */
 function getLoadableComponent(loader) {
-  return Loadable({
-    loader: loader,
-    loading: Spinner
-  });
+  return lazy(loader);
+  // return Loadable({
+  //   loader: loader,
+  //   loading: Spinner
+  // });
 }
 
 const Routes = props => {
@@ -107,7 +107,9 @@ const Routes = props => {
           exit={false}
         >
           <div className="routes">
-            <Switch location={props.location}>{dynamicRoutes}</Switch>
+            <React.Suspense fallback={<Spinner />}>
+              <Switch location={props.location}>{dynamicRoutes}</Switch>
+            </React.Suspense>
           </div>
         </CSSTransition>
       </TransitionGroup>
