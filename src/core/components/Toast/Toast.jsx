@@ -4,7 +4,7 @@ import Button from "react-md/lib/Buttons/Button";
 import classnames from "classnames";
 import "./Toast.css";
 
-export default class Toast extends React.Component {
+export default class Toast extends React.PureComponent {
   render() {
     return (
       <div

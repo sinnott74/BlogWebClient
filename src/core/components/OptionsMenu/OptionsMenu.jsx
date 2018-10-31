@@ -4,7 +4,7 @@ import OptionsMenuItem from "core/components/OptionsMenuItem";
 import classnames from "classnames";
 import "./OptionsMenu.css";
 
-export default class OptionsMenu extends React.Component {
+export default class OptionsMenu extends React.PureComponent {
   render() {
     return (
       <div

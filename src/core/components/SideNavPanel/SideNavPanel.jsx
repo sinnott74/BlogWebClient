@@ -6,7 +6,7 @@ import { version } from "../../../../package.json";
 import personalPic from "./me.jpg";
 import "./SideNavPanel.css";
 
-export default class SideNavPanel extends React.Component {
+export default class SideNavPanel extends React.PureComponent {
   render() {
     return (
       <div
