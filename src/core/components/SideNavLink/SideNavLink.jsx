@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "core/components/Link";
+import Link from "core/containers/Link";
 import FontIcon from "react-md/lib/FontIcons/FontIcon";
 import "./SideNavLink.css";
 

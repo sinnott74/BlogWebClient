@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "core/components/Link";
+import Link from "core/containers/Link";
 import Button from "react-md/lib/Buttons/Button";
 import Card from "core/components/Card";
 import TagChip from "blog/components/TagChip";

@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "core/components/Link";
+import Link from "core/containers/Link";
 import "./HeaderLayout.css";
 import Button from "react-md/lib/Buttons/Button";
 
-export default class HeaderLayout extends React.Component {
+export default class HeaderLayout extends React.PureComponent {
   render() {
     return (
       <div className="header-layout">

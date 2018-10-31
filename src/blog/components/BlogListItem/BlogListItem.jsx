@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Card from "core/components/Card";
-import Link from "core/components/Link";
+import Link from "core/containers/Link";
 import TagChip from "blog/components/TagChip";
 import "./BlogListItem.css";
 
