@@ -50,14 +50,15 @@ export default class Markdown extends React.Component {
    */
   hydrate() {
     for (const key in this.hydratableElements) {
-      hydrate(this.hydratableElements[key], document.getElementById(key));
+      let element = document.getElementById(key);
+      if (element) {
+        hydrate(this.hydratableElements[key], element);
+      }
     }
+    this.hydratableElements = {};
   }
 
   rawMarkup() {
-    // reset tracked hydratable elements
-    this.hydratableElements = {};
-
     if (!this.props.markdown) {
       return;
     }
@@ -93,7 +94,7 @@ export default class Markdown extends React.Component {
           const id = uuid();
           const component = this.props[type](...args);
           this.hydratableElements[id] = component;
-          return `<div id=${id}>${renderToStaticMarkup(component)}</div>`;
+          return `<div id="${id}">${renderToStaticMarkup(component)}</div>`;
         };
       }
     }
