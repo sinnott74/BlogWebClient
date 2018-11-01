@@ -47,6 +47,7 @@ export default class TodoAdd extends React.Component {
           className="todoadd-fab"
           floating
           primary
+          fixed
           onClick={this.handleAddTodoClick}
         >
           add
