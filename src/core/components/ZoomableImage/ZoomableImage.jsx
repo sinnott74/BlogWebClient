@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-md/lib/Buttons/Button";
+import FontIcon from "react-md/lib/FontIcons/FontIcon";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import "./ZoomableImage.css";
@@ -31,15 +32,11 @@ export default class ZoomableImage extends React.Component {
         ref={this.ref}
         onKeyDown={this.onKeyDown}
       >
-        <Button
-          icon
-          className="zoomableimage__button"
-          tooltipLabel="Close"
-          tooltipPosition="left"
-          tooltipDelay={1000}
-          onClick={this.onClose}
-        >
-          clear
+        <Button className="zoomableimage__button" onClick={this.onClose}>
+          <div className="zoomableimage__buttoninner">
+            <FontIcon inherit>clear</FontIcon>
+            <span>esc</span>
+          </div>
         </Button>
         <img
           src={this.props.src}

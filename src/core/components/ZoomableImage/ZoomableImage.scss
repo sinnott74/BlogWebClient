@@ -23,6 +23,38 @@
 .zoomableimage__button {
   display: none;
   background-color: black;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+  color: $primary-color;
+}
+
+.zoomableimage__button:hover {
+  background-color: $background-color-dark;
+}
+
+.zoomableimage__button:active {
+  background-color: $primary-color;
+}
+
+.zoomableimage__buttoninner {
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: $primary-color;
+  font-size: $font-size + px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+}
+
+.zoomableimage__buttoninner:active {
+  color: white;
 }
 
 .zoomableimage img {
