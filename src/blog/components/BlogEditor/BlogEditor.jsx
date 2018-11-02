@@ -21,6 +21,7 @@ export default class BlogEditor extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.tagField = React.createRef();
   }
 
   componentDidMount() {}
@@ -84,9 +85,7 @@ export default class BlogEditor extends React.Component {
                 maxRows={1}
                 maxLength={255}
                 onKeyPress={this._handleTagKeyPress}
-                ref={tagField => {
-                  this.tagField = tagField;
-                }}
+                ref={this.tagField}
               />
               <TextField
                 id="imageurl"
@@ -182,8 +181,8 @@ export default class BlogEditor extends React.Component {
 
   _handleTagKeyPress = e => {
     if (e.key === "Enter") {
-      const tag = this.tagField.value;
-      const field = this.tagField.getField();
+      const tag = this.tagField.current.value;
+      const field = this.tagField.current.getField();
       field.value = "";
       if (tag) {
         this.addTag(tag);

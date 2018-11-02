@@ -1,21 +1,26 @@
 import React from "react";
+import PropTypes from "prop-types";
 import SideNavLink from "core/components/SideNavLink";
 import PersonalLinks from "core/components/PersonalLinks";
 import { version } from "../../../../package.json";
 import personalPic from "./me.jpg";
 import "./SideNavPanel.css";
 
-export default class SideNavPanel extends React.Component {
+export default class SideNavPanel extends React.PureComponent {
   render() {
     return (
-      <div className="sidenavpanel">
+      <div
+        className="sidenavpanel"
+        role="region"
+        aria-label="Daniel Sinnott Info"
+      >
         <div className="sidenavpanel__header">
           <img alt="Me" className="sidenavpanel__image" src={personalPic} />
           <h2 className="sidenavpanel__name">Daniel Sinnott</h2>
           <h4 className="sidenavpanel__email">Daniel.Sinnott@outlook.com</h4>
         </div>
         <div className="sidenavpanel__body">
-          <div className="sidenavpanel__links">
+          <div className="sidenavpanel__links" role="navigation">
             <SideNavLink to="/" icon="create">
               Blog
             </SideNavLink>
@@ -25,9 +30,11 @@ export default class SideNavPanel extends React.Component {
             <SideNavLink to="/settings" icon="settings">
               Settings
             </SideNavLink>
-            {/* <SideNavLink to="/code" icon="code">
-              Code
-            </SideNavLink> */}
+            {this.props.isLoggedIn && (
+              <SideNavLink to="/todo" icon="cloud_done">
+                Todo
+              </SideNavLink>
+            )}
           </div>
           <div className="sidenavpanel__contentbottom">
             <PersonalLinks />
@@ -38,3 +45,7 @@ export default class SideNavPanel extends React.Component {
     );
   }
 }
+
+SideNavPanel.propTypes = {
+  isLoggedIn: PropTypes.bool
+};

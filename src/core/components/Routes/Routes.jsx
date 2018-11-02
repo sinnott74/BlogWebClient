@@ -1,8 +1,9 @@
-import React from "react";
-import { Route, Switch } from "react-router";
-import Loadable from "react-loadable";
+import React, { lazy } from "react";
+import { Route, Switch, withRouter } from "react-router";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Spinner from "core/components/Spinner";
 import AuthenticatedRoute from "core/containers/AuthenticatedRoute";
+import "./Routes.css";
 
 /**
  * Import all route pages
@@ -31,7 +32,30 @@ function flatten(array) {
 /**
  * Combine the page configurations
  */
-const routesConfigs = flatten(pages);
+let routesConfigs = flatten(pages);
+
+// Sort routConfigs by longest path
+// Paths without variables are listed before paths with variable
+routesConfigs = routesConfigs.sort((a, b) => {
+  if (!a.path) {
+    return 1;
+  }
+  if (!b.path) {
+    return -1;
+  }
+
+  let aHasVariable = a.path.includes(":");
+  let bHasVariable = b.path.includes(":");
+  if (aHasVariable && !bHasVariable) {
+    return 1;
+  }
+
+  if (!aHasVariable && bHasVariable) {
+    return -1;
+  }
+
+  return b.path.length - a.path.length;
+});
 
 // const pageRouteConfigs = routesConfigs.filter(routeConfig => {
 //   return !routeConfig.modal;
@@ -65,14 +89,32 @@ const dynamicRoutes = routesConfigs.map((routeConfig, index) => {
  * @param {} loader
  */
 function getLoadableComponent(loader) {
-  return Loadable({
-    loader: loader,
-    loading: Spinner
-  });
+  return lazy(loader);
+  // return Loadable({
+  //   loader: loader,
+  //   loading: Spinner
+  // });
 }
 
 const Routes = props => {
-  return <Switch className="main">{dynamicRoutes}</Switch>;
+  return (
+    <div className="main" role="main">
+      <TransitionGroup className="transition-group">
+        <CSSTransition
+          key={props.location.key}
+          timeout={{ enter: 150 }}
+          classNames="fade"
+          exit={false}
+        >
+          <div className="routes">
+            <React.Suspense fallback={<Spinner />}>
+              <Switch location={props.location}>{dynamicRoutes}</Switch>
+            </React.Suspense>
+          </div>
+        </CSSTransition>
+      </TransitionGroup>
+    </div>
+  );
 };
 
-export default Routes;
+export default withRouter(Routes);

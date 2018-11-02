@@ -3,48 +3,6 @@ import PropTypes from "prop-types";
 import "./SideNavLayout.css";
 
 export default class SideNavLayout extends React.Component {
-  render() {
-    return (
-      <div className="side-nav-layout">
-        <div
-          className="side-nav side_nav--animatable"
-          ref={sidenav => {
-            this.sidenav = sidenav;
-          }}
-        >
-          <div
-            className="side-nav__scrim"
-            onClick={this._handleScrimTap}
-            ref={scrim => {
-              this.scrim = scrim;
-            }}
-          />
-          <div
-            className="side-nav__content"
-            onTouchStart={this._handleSideNavTouchStart}
-            onTouchMove={this._handleSideNavTouchMove}
-            onTouchEnd={this._handleSideNavTouchEnd}
-            ref={sideNavContent => {
-              this.sideNavContent = sideNavContent;
-            }}
-          >
-            {this.props.sideNavPanel}
-          </div>
-          <div
-            className="side-nav__edgearea"
-            onTouchStart={this._handleEdgeTouchStart}
-            onTouchMove={this._handleSideNavTouchMove}
-            onTouchEnd={this._handleSideNavTouchEnd}
-            ref={edge => {
-              this.edge = edge;
-            }}
-          />
-        </div>
-        <div className="side-nav-layout_main">{this.props.children}</div>
-      </div>
-    );
-  }
-
   constructor(props) {
     super(props);
 
@@ -59,19 +17,51 @@ export default class SideNavLayout extends React.Component {
     this._handleSideNavTouchEnd = this._handleSideNavTouchEnd.bind(this);
     this._handleEdgeTouchStart = this._handleEdgeTouchStart.bind(this);
     this._handleScrimTap = this._handleScrimTap.bind(this);
+
+    this.sidenav = React.createRef();
+    this.scrim = React.createRef();
+    this.sideNavContent = React.createRef();
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.opened) {
+  render() {
+    if (this.props.opened) {
       this._open();
     } else {
       this._close();
     }
+
+    return (
+      <div className="side-nav-layout">
+        <div className="side-nav side_nav--animatable" ref={this.sidenav}>
+          <div
+            className="side-nav__scrim"
+            onClick={this._handleScrimTap}
+            ref={this.scrim}
+          />
+          <div
+            className="side-nav__content"
+            onTouchStart={this._handleSideNavTouchStart}
+            onTouchMove={this._handleSideNavTouchMove}
+            onTouchEnd={this._handleSideNavTouchEnd}
+            ref={this.sideNavContent}
+          >
+            {this.props.sideNavPanel}
+          </div>
+          <div
+            className="side-nav__edgearea"
+            onTouchStart={this._handleEdgeTouchStart}
+            onTouchMove={this._handleSideNavTouchMove}
+            onTouchEnd={this._handleSideNavTouchEnd}
+          />
+        </div>
+        <div className="side-nav-layout_main">{this.props.children}</div>
+      </div>
+    );
   }
 
   _handleSideNavTouchStart(e) {
-    this.sidenav.classList.remove("side_nav--animatable");
-    this.sideNavContentWidth = this.sideNavContent.offsetWidth;
+    this.sidenav.current.classList.remove("side_nav--animatable");
+    this.sideNavContentWidth = this.sideNavContent.current.offsetWidth;
     this.touching = true;
     this.touchStartX = e.touches[0].pageX;
     this.touchStartY = e.touches[0].pageY;
@@ -84,7 +74,7 @@ export default class SideNavLayout extends React.Component {
 
   _handleEdgeTouchStart(e) {
     this._handleSideNavTouchStart(e);
-    this.sideNavContent.style.transform = "translate3d(-95%, 0 , 0)";
+    this.sideNavContent.current.style.transform = "translate3d(-95%, 0 , 0)";
     this.touchingEdge = true;
     this.do = this._open;
     this.undo = this._close;
@@ -120,14 +110,14 @@ export default class SideNavLayout extends React.Component {
         opacityPercentage = this.MAXOPACITY - opacityPercentage;
       }
 
-      this.sideNavContent.style.transform =
+      this.sideNavContent.current.style.transform =
         "translate3d(" + -tranformX + "px, 0, 0)";
-      this.scrim.style.opacity = opacityPercentage;
+      this.scrim.current.style.opacity = opacityPercentage;
     }
   }
 
   _handleSideNavTouchEnd(e) {
-    this.sidenav.classList.add("side_nav--animatable");
+    this.sidenav.current.classList.add("side_nav--animatable");
     this.touching = false;
     this.direction = "";
     this.touchingEdge = false;
@@ -156,9 +146,11 @@ export default class SideNavLayout extends React.Component {
   }
 
   _close() {
-    this.sidenav.classList.remove("side_nav--opened");
-    this.sideNavContent.style.transform = "";
-    this.scrim.style.opacity = "";
+    if (this.sidenav.current) {
+      this.sidenav.current.classList.remove("side_nav--opened");
+      this.sideNavContent.current.style.transform = "";
+      this.scrim.current.style.opacity = "";
+    }
     document.body.classList.remove("noscroll");
     this.isOpened = false;
 
@@ -170,9 +162,11 @@ export default class SideNavLayout extends React.Component {
   }
 
   _open() {
-    this.sidenav.classList.add("side_nav--opened");
-    this.sideNavContent.style.transform = "";
-    this.scrim.style.opacity = "";
+    if (this.sidenav.current) {
+      this.sidenav.current.classList.add("side_nav--opened");
+      this.sideNavContent.current.style.transform = "";
+      this.scrim.current.style.opacity = "";
+    }
     document.body.classList.add("noscroll");
     this.isOpened = true;
 

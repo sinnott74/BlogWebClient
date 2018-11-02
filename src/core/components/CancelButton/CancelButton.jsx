@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "react-md/lib/Buttons/Button";
-import Link from "core/components/Link";
-// import "./CancelButton.css";
+import Link from "core/containers/Link";
 
 export default class CancelButton extends React.PureComponent {
   render() {

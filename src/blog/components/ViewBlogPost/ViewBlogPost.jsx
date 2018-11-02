@@ -1,30 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import marked from "marked";
-import Link from "core/components/Link";
+import Link from "core/containers/Link";
 import Button from "react-md/lib/Buttons/Button";
 import Card from "core/components/Card";
-import "blog/components/TagChip";
-import "./ViewBlogPost.css";
 import TagChip from "blog/components/TagChip";
-
-// Prism
-import Prism from "prismjs";
-import "prismjs/themes/prism-coy.css";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-go";
+import Markdown from "core/components/Markdown";
+import ZoomableImage from "core/components/ZoomableImage";
+import "./ViewBlogPost.css";
 
 export default class ViewBlogPost extends React.Component {
   componentDidMount() {}
 
   render() {
     const img = this.props.imageurl ? (
-      <img
+      <ZoomableImage
         className="blogpost__image"
         src={this.props.imageurl}
         alt={this.props.title}
+        title={this.props.title}
       />
     ) : null;
 
@@ -38,31 +31,18 @@ export default class ViewBlogPost extends React.Component {
         )}
         {this.props.tags && this.getTags()}
         {img}
-        <div
+        <Markdown
+          markdown={this.props.text}
           className="blogpost__text"
-          dangerouslySetInnerHTML={this.rawMarkup()}
+          image={this.imageRenderer}
         />
         {this.props.showActions && this.getActions()}
       </Card>
     );
   }
 
-  rawMarkup() {
-    if (this.props.text) {
-      const rawMarkup = marked(this.props.text, {
-        sanitize: true,
-        gfm: true,
-        tables: true,
-        // langPrefix: "language-",
-        highlight: function(code, lang) {
-          if (Prism.languages[lang]) {
-            const grammar = Prism.languages[lang];
-            return Prism.highlight(code, grammar, lang);
-          }
-        }
-      });
-      return { __html: rawMarkup };
-    }
+  imageRenderer(src, title, alt) {
+    return <ZoomableImage src={src} title={title} alt={alt} />;
   }
 
   getActions() {

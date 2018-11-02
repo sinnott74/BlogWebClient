@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./Settings.css";
 import Switch from "react-md/lib/SelectionControls/Switch";
 
-export default class Settings extends React.Component {
+export default class Settings extends React.PureComponent {
   render() {
     return (
       <div className="settings">

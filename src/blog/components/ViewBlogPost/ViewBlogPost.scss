@@ -2,6 +2,7 @@
 
 $blogpostmargin: 5px;
 .blogpost {
+  position: relative;
   width: calc(100% - 10px);
 }
 .blogpost__title {
@@ -14,8 +15,11 @@ $blogpostmargin: 5px;
   text-align: center;
   width: calc(100% - 2vh);
 }
+.blogpost_tags {
+  margin-bottom: 2vw;
+}
 .blogpost__image {
-  margin-top: 2vw;
+  // margin-top: 2vw;
   width: 100%;
 }
 .blogpost__text {
@@ -23,6 +27,7 @@ $blogpostmargin: 5px;
   max-width: 100%;
   max-height: 100%;
   white-space: normal;
+  word-wrap: break-word;
 }
 .blogpost__text * {
   max-width: 100%;
@@ -57,6 +62,14 @@ $blogpostmargin: 5px;
   max-width: 430px;
   color: $primary-color;
   clear: both;
+}
+
+.dark .blogpost__text tr:nth-child(odd) {
+  background: lighten($background-color-dark, 5%);
+}
+
+.blogpost__text tr:nth-child(odd) {
+  background: darken($background-color-light, 10%);
 }
 
 @media (max-width: 700px) {

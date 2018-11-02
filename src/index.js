@@ -1,3 +1,10 @@
+// Polyfills for ie11
+import "react-app-polyfill/ie11";
+import "url-search-params-polyfill";
+import "string-includes-polyfill";
+import "array.prototype.includes";
+import "string.prototype.repeat";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import store, { history } from "core/redux/store";

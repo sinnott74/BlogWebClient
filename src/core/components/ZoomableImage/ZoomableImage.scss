@@ -1,0 +1,82 @@
+@import "core/style/variable";
+
+.zoomableimage {
+  background-color: transparent;
+}
+
+.zoomableimage-fullscreen.zoomableimage {
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  transition: background-color 200ms linear;
+  cursor: default;
+}
+
+.zoomableimage__button {
+  display: none;
+  background-color: black;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+  color: $primary-color;
+}
+
+.zoomableimage__button:hover {
+  background-color: $background-color-dark;
+}
+
+.zoomableimage__button:active {
+  background-color: $primary-color;
+}
+
+.zoomableimage__buttoninner {
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: $primary-color;
+  font-size: $font-size + px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+}
+
+.zoomableimage__buttoninner:active {
+  color: white;
+}
+
+.zoomableimage img {
+  transition: background-color 400ms linear;
+  max-width: 1000px;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.zoomableimage-fullscreen .zoomableimage__button {
+  position: fixed;
+  display: block;
+  right: 0;
+  top: 0;
+  position: absolute;
+  color: $text-color-light;
+}
+
+.zoomableimage__subtext {
+  text-align: center;
+}
+
+.zoomableimage-fullscreen .zoomableimage__subtext {
+  display: none;
+}

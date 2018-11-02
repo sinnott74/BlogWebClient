@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "core/components/Card";
-// import Link from "core/components/Link";
+// import Link from "core/containers/Link";
 import { connect } from "react-redux";
 import { login } from "core/ducks/auth";
 import { Redirect } from "react-router";

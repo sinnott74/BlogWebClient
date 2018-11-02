@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import HeaderLayout from "core/containers/HeaderLayout";
 import SideNavLayout from "core/containers/SideNavLayout";
 import SideNavPanel from "core/components/SideNavPanel";
@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import "core/components/Card";
 import "./App.css";
 
-export default class App extends React.Component {
+export default class App extends React.PureComponent {
   render() {
     this.props.darkTheme
       ? document.documentElement.classList.add("dark")
@@ -20,20 +20,25 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <SideNavLayout sideNavPanel={<SideNavPanel />}>
-          <HeaderLayout title="Sinnott">
-            <Routes />
-            <OptionsMenu />
-          </HeaderLayout>
-        </SideNavLayout>
-        <Toast />
-        <ServiceWorker />
-        <ScreenMediaQuery mediaQuery="(min-width: 1025px)" />
+        <StrictMode>
+          <SideNavLayout
+            sideNavPanel={<SideNavPanel isLoggedIn={this.props.isLoggedIn} />}
+          >
+            <HeaderLayout title="Sinnott">
+              <Routes />
+              <OptionsMenu />
+            </HeaderLayout>
+          </SideNavLayout>
+          <Toast />
+          <ServiceWorker />
+          <ScreenMediaQuery mediaQuery="(min-width: 1025px)" />
+        </StrictMode>
       </div>
     );
   }
 }
 
 App.propTypes = {
-  darkTheme: PropTypes.bool
+  darkTheme: PropTypes.bool,
+  isLoggedIn: PropTypes.bool
 };

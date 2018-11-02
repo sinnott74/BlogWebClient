@@ -22,7 +22,7 @@ export default class BlogList extends React.Component {
   }
 
   componentWillUnmount() {
-    this.unlisten();
+    this.unlisten && this.unlisten();
   }
 
   render() {

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./OptionsMenuItem.css";
-import Link from "core/components/Link";
+import Link from "core/containers/Link";
 
 const OptionsMenuItem = props => {
   return (

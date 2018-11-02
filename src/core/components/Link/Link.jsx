@@ -1,9 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
 import PropTypes from "prop-types";
-import { closeSideNav } from "core/ducks/sidenav";
 
 const Link = props => {
   return (
@@ -13,6 +10,7 @@ const Link = props => {
       style={props.style}
       exact={props.exact}
       onClick={props.handleClick}
+      title={props.title}
       to={{
         pathname: props.to,
         state: {
@@ -25,28 +23,13 @@ const Link = props => {
   );
 };
 
+export default Link;
+
 Link.propTypes = {
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
   exact: PropTypes.bool,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  title: PropTypes.string
 };
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    handleClick: e => {
-      dispatch(closeSideNav());
-      if (ownProps.onClick) {
-        ownProps.onClick();
-      }
-    }
-  };
-};
-
-export default withRouter(
-  connect(
-    null,
-    mapDispatchToProps
-  )(Link)
-);
