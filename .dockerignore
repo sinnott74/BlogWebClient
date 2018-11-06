@@ -1,3 +1,5 @@
-src
-coverage
-public
+*
+
+!nginx.conf
+!docker-entrypoint.sh
+!build/
