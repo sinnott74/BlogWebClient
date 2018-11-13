@@ -64,6 +64,10 @@ $blogpostmargin: 5px;
   clear: both;
 }
 
+.blogpost__text pre {
+  font-size: $font-size - 2px;
+}
+
 .dark .blogpost__text tr:nth-child(odd) {
   background: lighten($background-color-dark, 5%);
 }
