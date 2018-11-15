@@ -6,6 +6,7 @@ import Card from "core/components/Card";
 import TagChip from "blog/components/TagChip";
 import Markdown from "core/components/Markdown";
 import ZoomableImage from "core/components/ZoomableImage";
+import Helmet from "react-helmet";
 import "./ViewBlogPost.css";
 
 export default class ViewBlogPost extends React.Component {
@@ -22,22 +23,28 @@ export default class ViewBlogPost extends React.Component {
     ) : null;
 
     return (
-      <Card className="blogpost">
-        <h1 className="blogpost__title">{this.props.title}</h1>
-        {this.props.author && (
-          <div className="blogpost__subtitle">{`${this.props.date} by ${
-            this.props.author.firstname
-          } ${this.props.author.lastname}`}</div>
-        )}
-        {this.props.tags && this.getTags()}
-        {img}
-        <Markdown
-          markdown={this.props.text}
-          className="blogpost__text"
-          image={this.imageRenderer}
-        />
-        {this.props.showActions && this.getActions()}
-      </Card>
+      <React.Fragment>
+        <Helmet>
+          <title>{this.props.title}</title>
+          <meta name="keywords" content={this.getTagKeywords()} />
+        </Helmet>
+        <Card className="blogpost">
+          <h1 className="blogpost__title">{this.props.title}</h1>
+          {this.props.author && (
+            <div className="blogpost__subtitle">{`${this.props.date} by ${
+              this.props.author.firstname
+            } ${this.props.author.lastname}`}</div>
+          )}
+          {this.props.tags && this.getTags()}
+          {img}
+          <Markdown
+            markdown={this.props.text}
+            className="blogpost__text"
+            image={this.imageRenderer}
+          />
+          {this.props.showActions && this.getActions()}
+        </Card>
+      </React.Fragment>
     );
   }
 
@@ -84,6 +91,17 @@ export default class ViewBlogPost extends React.Component {
     });
     return <div className="blogpost_tags">{tags}</div>;
   }
+
+  getTagKeywords() {
+    if (this.props.tags) {
+      return this.props.tags
+        .map(tag => {
+          return tag.name;
+        })
+        .join();
+    }
+    return "";
+  }
 }
 
 ViewBlogPost.propTypes = {
@@ -98,5 +116,10 @@ ViewBlogPost.propTypes = {
   user_id: PropTypes.number.isRequired,
   loggedInUserID: PropTypes.number.isRequired,
   showActions: PropTypes.bool,
-  imageurl: PropTypes.string
+  imageurl: PropTypes.string,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired
+    })
+  )
 };
