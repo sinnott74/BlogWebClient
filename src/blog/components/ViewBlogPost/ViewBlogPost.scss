@@ -39,14 +39,14 @@ $blogpostmargin: 5px;
 .blogpost h4,
 .blogpost h5,
 .blogpost h6 {
-  font-weight: 500;
+  font-weight: 700;
   white-space: normal;
   margin-top: 25px;
 }
 .blogpost__text img {
   display: block;
   width: 100%;
-  margin: 40px 0;
+  margin-top: 40px;
   max-height: 1000px;
 }
 .blogpost__text p {
@@ -62,6 +62,10 @@ $blogpostmargin: 5px;
   max-width: 430px;
   color: $primary-color;
   clear: both;
+}
+
+.blogpost__text pre {
+  font-size: $font-size - 2px;
 }
 
 .dark .blogpost__text tr:nth-child(odd) {
