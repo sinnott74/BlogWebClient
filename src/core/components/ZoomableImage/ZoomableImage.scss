@@ -80,3 +80,7 @@
 .zoomableimage-fullscreen .zoomableimage__subtext {
   display: none;
 }
+
+.zoomableimage__clickzoomtext {
+  font-size: $font-size - 4px;
+}
