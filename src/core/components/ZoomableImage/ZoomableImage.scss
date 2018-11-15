@@ -17,6 +17,9 @@
   align-items: center;
   background-color: black;
   transition: background-color 200ms linear;
+}
+
+.zoomableimage-fullscreen.zoomableimage img {
   cursor: default;
 }
 
