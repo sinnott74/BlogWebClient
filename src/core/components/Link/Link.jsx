@@ -13,6 +13,7 @@ const Link = props => {
       title={props.title}
       to={{
         pathname: props.to,
+        search: props.search,
         state: {
           from: props.location.pathname
         }
@@ -27,6 +28,7 @@ export default Link;
 
 Link.propTypes = {
   to: PropTypes.string.isRequired,
+  search: PropTypes.string,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
   exact: PropTypes.bool,
