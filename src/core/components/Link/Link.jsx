@@ -7,7 +7,7 @@ const Link = props => {
     <NavLink
       className={props.className}
       activeClassName={props.activeClassName}
-      style={props.style}
+      style={getStyle(props)}
       exact={props.exact}
       onClick={props.handleClick}
       title={props.title}
@@ -24,6 +24,18 @@ const Link = props => {
   );
 };
 
+/**
+ * Gets the style for the link. Sets pointerEvents to none if disabled prop is set.
+ * @param {*} props
+ */
+function getStyle(props) {
+  let style = props.style || {};
+  if (props.disabled) {
+    style.pointerEvents = "none";
+  }
+  return style;
+}
+
 export default Link;
 
 Link.propTypes = {
@@ -33,5 +45,6 @@ Link.propTypes = {
   activeClassName: PropTypes.string,
   exact: PropTypes.bool,
   handleClick: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  disabled: PropTypes.string
 };
