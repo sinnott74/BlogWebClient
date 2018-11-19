@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import BlogListItem from "blog/components/BlogListItem";
 import Spinner from "core/components/Spinner";
 import TagChip from "blog/components/TagChip";
-import Pagination from "core/components/Pagination";
+import Pagination from "core/containers/Pagination";
 import "./BlogList.css";
 
 export default class BlogList extends React.Component {

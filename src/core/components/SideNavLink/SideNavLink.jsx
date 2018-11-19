@@ -20,7 +20,9 @@ const SideNavLink = props => {
 };
 
 SideNavLink.propTypes = {
-  to: PropTypes.string
+  to: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  children: PropTypes.node
 };
 
 export default SideNavLink;

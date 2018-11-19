@@ -1,18 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "core/containers/Link";
 import Button from "react-md/lib/Buttons/Button";
 import "./Pagination.css";
 
 export default class Pagination extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentPage: 1
-    };
-
-    this.onPreviousClick = this.onPreviousClick.bind(this);
-    this.onNextClick = this.onNextClick.bind(this);
     this.paginateTopRef = React.createRef();
   }
 
@@ -20,27 +14,32 @@ export default class Pagination extends React.Component {
     const itemsPerPage = this.props.itemsPerPage || 6;
     let items = React.Children.toArray(this.props.children);
     const numPages = Math.round(items.length / itemsPerPage);
-    const leftDisabled = this.state.currentPage === 1 ? true : false;
-    const rightDisabled = this.state.currentPage === numPages ? true : false;
+    const showLeft = this.props.page === 1 ? false : true;
+    const showRight = this.props.page === numPages ? false : true;
+
     items = items.slice(
-      (this.state.currentPage - 1) * itemsPerPage,
-      this.state.currentPage * itemsPerPage
+      (this.props.page - 1) * itemsPerPage,
+      this.props.page * itemsPerPage
     );
 
     const pageButtons = [];
     for (let i = 1; i <= numPages; i++) {
-      const isCurrent = i === this.state.currentPage ? true : false;
+      const isCurrent = i === this.props.page ? true : false;
       pageButtons.push(
-        <Button
-          flat={!isCurrent}
-          raised={isCurrent}
-          primary={isCurrent}
-          className="paginate__button"
-          onClick={() => this.setCurrentPage(i)}
-          key={i}
+        <Link
+          to={this.props.location.pathname}
+          search={this.getSearchParams(i)}
+          disabled={isCurrent}
         >
-          {i}
-        </Button>
+          <Button
+            primary={isCurrent}
+            className="md-btn--icon md-icon"
+            onClick={() => this.handlePageClick()}
+            key={i}
+          >
+            {i}
+          </Button>
+        </Link>
       );
     }
 
@@ -48,57 +47,72 @@ export default class Pagination extends React.Component {
       <div className="paginate" ref={this.paginateTopRef}>
         <div className={this.props.className}>{items}</div>
         <div className="paginate__buttons">
-          <Button
-            flat
-            iconBefore={false}
-            iconChildren="chevron_left"
-            className="paginate__button-left"
-            tooltipLabel="Previous"
-            tooltipPosition="top"
-            tooltipDelay={1000}
-            disabled={leftDisabled}
-            onClick={this.onPreviousClick}
-          />
+          <Link
+            to={this.props.location.pathname}
+            search={this.getSearchParams(this.props.page - 1)}
+            disabled={!showLeft}
+          >
+            <Button
+              icon
+              iconBefore={false}
+              iconChildren="chevron_left"
+              className="paginate__button-left"
+              tooltipLabel="Previous"
+              tooltipPosition="top"
+              tooltipDelay={1000}
+              onClick={() => this.handlePageClick()}
+            />
+          </Link>
           <div className="paginate__numbuttons">{pageButtons}</div>
-          <Button
-            flat
-            iconChildren="chevron_right"
-            className="paginate__button-right"
-            tooltipLabel="Next"
-            tooltipPosition="top"
-            tooltipDelay={1000}
-            disabled={rightDisabled}
-            onClick={this.onNextClick}
-          />
+          <Link
+            to={this.props.location.pathname}
+            search={this.getSearchParams(this.props.page + 1)}
+            disabled={!showRight}
+          >
+            <Button
+              icon
+              iconChildren="chevron_right"
+              className="paginate__button-right"
+              tooltipLabel="Next"
+              tooltipPosition="top"
+              tooltipDelay={1000}
+              onClick={() => this.handlePageClick()}
+            />
+          </Link>
         </div>
       </div>
     );
   }
 
-  onPreviousClick() {
-    this.setCurrentPage(this.state.currentPage - 1);
+  /**
+   * Creates a Search Params witht the page param set to the given pageNum.
+   */
+  getSearchParams(pageNum) {
+    const searchParams = new URLSearchParams(this.props.location.search);
+    searchParams.set("page", pageNum);
+    return searchParams.toString();
   }
 
-  onNextClick() {
-    this.setCurrentPage(this.state.currentPage + 1);
+  /**
+   * Handle clicking of a page button
+   */
+  handlePageClick() {
+    this.scrollTop();
   }
 
-  setCurrentPage(page) {
-    if (page === this.state.currentPage) return;
-    this.setState({
-      currentPage: page
-    });
+  /**
+   * Scroll to the top of pagination
+   */
+  scrollTop() {
     const paginateClientRect = this.paginateTopRef.current.getBoundingClientRect();
     window.scrollTo(paginateClientRect.x, paginateClientRect.y);
-    if (this.props.onPageChange) {
-      this.props.onPageChange(page);
-    }
   }
 }
 
 Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
   itemsPerPage: PropTypes.number.isRequired,
   className: PropTypes.string,
-  onPageChange: PropTypes.func,
+  handlePageChange: PropTypes.func.isRequired,
   children: PropTypes.arrayOf(PropTypes.node).isRequired
 };
