@@ -19,7 +19,7 @@
   transition: background-color 200ms linear;
 }
 
-.zoomableimage-fullscreen.zoomableimage img {
+.zoomableimage-fullscreen.zoomableimage .zoomableimage__image {
   cursor: default;
 }
 
@@ -60,7 +60,7 @@
   color: white;
 }
 
-.zoomableimage img {
+.zoomableimage .zoomableimage__image {
   transition: background-color 400ms linear;
   max-width: 1000px;
   width: 100%;
