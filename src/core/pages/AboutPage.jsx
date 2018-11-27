@@ -9,7 +9,7 @@ export default class AboutPage extends React.Component {
   render() {
     return (
       <Card>
-        <h1>Hey I'm Sinnott</h1>
+        <h1>I'm Daniel Sinnott</h1>
         <p>
           I'm a software developer, thought leader, boxer, mascot, astronaut,
           imitation Krusty, baby proofer, trucker, hippie, plow driver, food
