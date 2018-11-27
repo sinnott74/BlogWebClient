@@ -76,11 +76,9 @@ export default class LazyImage extends React.PureComponent {
   }
 
   intersectionCallback(entries, observer) {
-    entries.forEach(entry => {
-      if (entry.intersectionRatio > 0) {
-        this.onInView();
-      }
-    });
+    if (entries.some(entry => entry.isIntersecting)) {
+      this.onInView();
+    }
   }
 
   onInView() {
