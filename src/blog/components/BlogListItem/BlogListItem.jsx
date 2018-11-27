@@ -3,16 +3,11 @@ import PropTypes from "prop-types";
 import Card from "core/components/Card";
 import Link from "core/containers/Link";
 import TagChip from "blog/components/TagChip";
+import LazyImage from "core/components/LazyImage";
 import "./BlogListItem.css";
 
 class BlogListItem extends React.PureComponent {
   render() {
-    const imageStyle = this.props.imageurl
-      ? {
-          backgroundImage: `url(${this.props.imageurl})`
-        }
-      : {};
-
     if (this.props.tags) {
       var tagEl = <div className="bloglistitem__tags">{this.getTags()}</div>;
     }
@@ -21,10 +16,16 @@ class BlogListItem extends React.PureComponent {
       <Card className="bloglistitem">
         <Link
           to={`/blog/${this.props.id}`}
-          className="bloglistitem__link blogpostitem__image"
-          style={imageStyle}
+          className="bloglistitem__link "
           title={this.props.title}
-        />
+        >
+          <LazyImage
+            className="blogpostitem__image"
+            src={this.props.imageurl}
+            title={this.props.title}
+            imgStyle={{ objectFit: "cover" }}
+          />
+        </Link>
         <div className="bloglistitem__heading">
           <Link
             to={`/blog/${this.props.id}`}

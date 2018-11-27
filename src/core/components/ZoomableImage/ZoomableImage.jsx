@@ -3,6 +3,7 @@ import Button from "react-md/lib/Buttons/Button";
 import FontIcon from "react-md/lib/FontIcons/FontIcon";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import LazyImage from "core/components/LazyImage";
 import "./ZoomableImage.css";
 
 export default class ZoomableImage extends React.Component {
@@ -18,6 +19,8 @@ export default class ZoomableImage extends React.Component {
     this.onOpen = this.onOpen.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+
+    this.imgRef = React.createRef();
   }
 
   render() {
@@ -38,11 +41,21 @@ export default class ZoomableImage extends React.Component {
             <span>esc</span>
           </div>
         </Button>
-        <img
+        {/* <img
           src={this.props.src}
           alt={this.props.alt}
           title={this.props.title}
           onClick={this.onOpen}
+          ref={this.imgRef}
+          className="zoomableimage__image"
+        /> */}
+        <LazyImage
+          src={this.props.src}
+          alt={this.props.alt}
+          title={this.props.title}
+          onClick={this.onOpen}
+          ref={this.imgRef}
+          className="zoomableimage__image"
         />
         <div className="zoomableimage__subtext">
           <div>{this.props.title}</div>
@@ -50,6 +63,13 @@ export default class ZoomableImage extends React.Component {
         </div>
       </div>
     );
+  }
+
+  // FLIP technique
+  componentDidUpdate(prevProps) {
+    if (this.state.zoomed) {
+      console.log(this.ref.current.getBoundingClientRect());
+    }
   }
 
   onKeyDown(e) {
