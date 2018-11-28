@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import defaultSrc from "./default.svg";
 import "./LazyImage.css";
+
+const defaultPlaceholderColor = "#dcdcdc";
 
 /**
  * Image which loads its source when scrolled into view
@@ -13,11 +14,15 @@ export default class LazyImage extends React.PureComponent {
 
     this.state = {
       load: true,
-      loaded: true
+      loaded: true,
+      showInitial: true
     };
 
     this.imgRef = React.createRef();
     this.onSrcLoad = this.onSrcLoad.bind(this);
+    this.onLazyImageLoadAnimationEnd = this.onLazyImageLoadAnimationEnd.bind(
+      this
+    );
 
     // IntersectionObserver exists, lazy load image
     if (window.IntersectionObserver) {
@@ -42,31 +47,50 @@ export default class LazyImage extends React.PureComponent {
   }
 
   render() {
+    const placeholderColor =
+      this.props.placeholderColor || defaultPlaceholderColor;
+
     const className = classnames("LazyImage", this.props.className, {
       "LazyImage-loaded": this.state.loaded
     });
+
+    const imgStyle = {
+      ...this.props.style,
+      position: this.state.showInitial ? "absolute" : "relative"
+    };
+
+    const placeHolderStyle = {
+      ...this.props.style,
+      backgroundColor: placeholderColor
+    };
 
     return (
       <div
         className={className}
         style={this.props.style}
         onClick={this.props.onClick}
+        ref={this.imgRef}
       >
-        <img
-          src={this.props.initialSrc || defaultSrc}
-          alt={this.props.alt}
-          title={this.props.title}
-          ref={this.imgRef}
-          style={this.props.imgStyle}
-          className="LazyImage__inital"
-        />
+        {this.state.showInitial && (
+          <div className="LazyImage__placeholder" style={placeHolderStyle} />
+        )}
+        {this.props.initialSrc &&
+          this.state.showInitial && (
+            <img
+              src={this.props.initialSrc}
+              alt={this.props.alt}
+              title={this.props.title}
+              style={imgStyle}
+              className="LazyImage__inital"
+            />
+          )}
         {this.state.load && (
           <img
             src={this.props.src}
             alt={this.props.alt}
             title={this.props.title}
             className="LazyImage__lazy"
-            style={this.props.imgStyle}
+            style={imgStyle}
             onLoad={this.onSrcLoad}
             onAnimationEnd={this.onLazyImageLoadAnimationEnd}
           />
@@ -96,15 +120,21 @@ export default class LazyImage extends React.PureComponent {
       loaded: true
     });
   }
+
+  onLazyImageLoadAnimationEnd() {
+    this.setState({
+      showInitial: false
+    });
+  }
 }
 
 LazyImage.propTypes = {
+  placeholderColor: PropTypes.string,
   src: PropTypes.string,
   initialSrc: PropTypes.string,
   alt: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
-  imgStyle: PropTypes.objectOf(PropTypes.string),
   style: PropTypes.objectOf(PropTypes.string)
 };

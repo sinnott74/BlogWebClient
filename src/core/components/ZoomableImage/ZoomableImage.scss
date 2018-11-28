@@ -63,6 +63,7 @@
 .zoomableimage .zoomableimage__image {
   transition: background-color 400ms linear;
   max-width: 1000px;
+  height: 500px;
   width: 100%;
   cursor: zoom-in;
 }
