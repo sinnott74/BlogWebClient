@@ -15,14 +15,12 @@ export default class LazyImage extends React.PureComponent {
     this.state = {
       load: true,
       loaded: true,
-      showInitial: true
+      showInitial: false
     };
 
     this.imgRef = React.createRef();
     this.onSrcLoad = this.onSrcLoad.bind(this);
-    this.onLazyImageLoadAnimationEnd = this.onLazyImageLoadAnimationEnd.bind(
-      this
-    );
+    this.onLazyImageFadeInEnd = this.onLazyImageFadeInEnd.bind(this);
 
     // IntersectionObserver exists, lazy load image
     if (window.IntersectionObserver) {
@@ -30,6 +28,7 @@ export default class LazyImage extends React.PureComponent {
       this.observer = new IntersectionObserver(this.intersectionCallback);
       this.state.load = false;
       this.state.loaded = false;
+      this.state.showInitial = true;
     }
   }
 
@@ -121,7 +120,7 @@ export default class LazyImage extends React.PureComponent {
     });
   }
 
-  onLazyImageLoadAnimationEnd() {
+  onLazyImageFadeInEnd() {
     this.setState({
       showInitial: false
     });
