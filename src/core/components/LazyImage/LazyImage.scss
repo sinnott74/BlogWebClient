@@ -4,32 +4,37 @@ $fadetime: 0.3s;
   position: relative;
 }
 
-.LazyImage__lazy {
-  position: absolute;
-  left: 0;
-  top: 0;
+%LazyImage_common {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  visibility: hidden;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.LazyImage__placeholder {
+  @extend %LazyImage_common;
 }
 
 .LazyImage__inital {
-  height: 100%;
-  width: 100%;
-  backface-visibility: hidden;
+  @extend %LazyImage_common;
+}
+
+.LazyImage__lazy {
+  @extend %LazyImage_common;
+  opacity: 0;
 }
 
 .LazyImage-loaded .LazyImage__lazy {
-  animation: fadein $fadetime;
-  animation-timing-function: ease-in;
-  visibility: visible;
+  animation: $fadetime fadein;
+  animation-fill-mode: forwards;
 }
 
-.LazyImage-loaded .LazyImage__inital {
-  animation: fadeout $fadetime;
+.LazyImage-loaded .LazyImage__inital,
+.LazyImage-loaded .LazyImage__placeholder {
+  animation: $fadetime fadeout;
   animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
 }
 
 @keyframes fadeout {

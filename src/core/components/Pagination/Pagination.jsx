@@ -13,9 +13,9 @@ export default class Pagination extends React.Component {
   render() {
     const itemsPerPage = this.props.itemsPerPage || 6;
     let items = React.Children.toArray(this.props.children);
-    const numPages = Math.round(items.length / itemsPerPage);
-    const showLeft = this.props.page === 1 ? false : true;
-    const showRight = this.props.page === numPages ? false : true;
+    const numPages = Math.round(items.length / itemsPerPage) || 1;
+    const showLeft = this.props.page <= 1 ? false : true;
+    const showRight = this.props.page >= numPages ? false : true;
 
     items = items.slice(
       (this.props.page - 1) * itemsPerPage,

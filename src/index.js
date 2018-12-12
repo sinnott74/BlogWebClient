@@ -9,7 +9,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import store, { history } from "core/redux/store";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "react-router-redux";
+import { ConnectedRouter } from "connected-react-router";
 import App from "core/containers/App";
 
 // UI components to bundle centrally instead of within each page chunk

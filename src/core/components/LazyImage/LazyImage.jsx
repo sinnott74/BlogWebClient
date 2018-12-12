@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import defaultSrc from "./default.svg";
 import "./LazyImage.css";
+
+import { ReactComponent as Placeholder } from "./placeholder.svg";
+
+const defaultHeightToWidthRatio = 0.5;
 
 /**
  * Image which loads its source when scrolled into view
@@ -13,11 +16,13 @@ export default class LazyImage extends React.PureComponent {
 
     this.state = {
       load: true,
-      loaded: true
+      loaded: true,
+      showInitial: false
     };
 
     this.imgRef = React.createRef();
-    this.onSrcLoad = this.onSrcLoad.bind(this);
+    this.onLazyLoad = this.onLazyLoad.bind(this);
+    this.onLazyImageFadeInEnd = this.onLazyImageFadeInEnd.bind(this);
 
     // IntersectionObserver exists, lazy load image
     if (window.IntersectionObserver) {
@@ -25,6 +30,7 @@ export default class LazyImage extends React.PureComponent {
       this.observer = new IntersectionObserver(this.intersectionCallback);
       this.state.load = false;
       this.state.loaded = false;
+      this.state.showInitial = true;
     }
   }
 
@@ -42,6 +48,11 @@ export default class LazyImage extends React.PureComponent {
   }
 
   render() {
+    const containerStyle = {
+      ...this.props.style,
+      paddingTop: this.calculateHeight()
+    };
+
     const className = classnames("LazyImage", this.props.className, {
       "LazyImage-loaded": this.state.loaded
     });
@@ -49,26 +60,30 @@ export default class LazyImage extends React.PureComponent {
     return (
       <div
         className={className}
-        style={this.props.style}
+        style={containerStyle}
         onClick={this.props.onClick}
+        ref={this.imgRef}
       >
-        <img
-          src={this.props.initialSrc || defaultSrc}
-          alt={this.props.alt}
-          title={this.props.title}
-          ref={this.imgRef}
-          style={this.props.imgStyle}
-          className="LazyImage__inital"
-        />
+        {this.state.showInitial && (
+          <Placeholder className="LazyImage__placeholder" />
+        )}
+        {this.props.initialSrc &&
+          this.state.showInitial && (
+            <img
+              src={this.props.initialSrc}
+              alt={this.props.alt}
+              title={this.props.title}
+              className="LazyImage__initial"
+            />
+          )}
         {this.state.load && (
           <img
             src={this.props.src}
             alt={this.props.alt}
             title={this.props.title}
             className="LazyImage__lazy"
-            style={this.props.imgStyle}
-            onLoad={this.onSrcLoad}
-            onAnimationEnd={this.onLazyImageLoadAnimationEnd}
+            onLoad={this.onLazyLoad}
+            onAnimationEnd={this.onLazyImageFadeInEnd}
           />
         )}
       </div>
@@ -76,11 +91,9 @@ export default class LazyImage extends React.PureComponent {
   }
 
   intersectionCallback(entries, observer) {
-    entries.forEach(entry => {
-      if (entry.intersectionRatio > 0) {
-        this.onInView();
-      }
-    });
+    if (entries.some(entry => entry.isIntersecting)) {
+      this.onInView();
+    }
   }
 
   onInView() {
@@ -93,20 +106,31 @@ export default class LazyImage extends React.PureComponent {
     this.observer = null;
   }
 
-  onSrcLoad() {
+  onLazyLoad() {
     this.setState({
       loaded: true
     });
   }
+
+  onLazyImageFadeInEnd() {
+    this.setState({
+      showInitial: false
+    });
+  }
+
+  calculateHeight() {
+    const ratio = this.props.heightToWidthRatio || defaultHeightToWidthRatio;
+    return ratio * 100 + "%";
+  }
 }
 
 LazyImage.propTypes = {
+  heightToWidthRatio: PropTypes.number,
   src: PropTypes.string,
   initialSrc: PropTypes.string,
   alt: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
-  imgStyle: PropTypes.objectOf(PropTypes.string),
   style: PropTypes.objectOf(PropTypes.string)
 };

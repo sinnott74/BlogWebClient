@@ -1,7 +1,7 @@
 import createHistory from "history/createBrowserHistory";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { routerMiddleware } from "react-router-redux";
+import { routerMiddleware, connectRouter } from "connected-react-router";
 import reducerRegistry from "./ReducerRegistry";
 export const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -24,6 +24,8 @@ const combine = reducers => {
   });
   return combineReducers(reducers);
 };
+
+reducerRegistry.register("router", connectRouter(history));
 
 const rootReducer = combine(reducerRegistry.getReducers());
 

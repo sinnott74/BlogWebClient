@@ -41,14 +41,6 @@ export default class ZoomableImage extends React.Component {
             <span>esc</span>
           </div>
         </Button>
-        {/* <img
-          src={this.props.src}
-          alt={this.props.alt}
-          title={this.props.title}
-          onClick={this.onOpen}
-          ref={this.imgRef}
-          className="zoomableimage__image"
-        /> */}
         <LazyImage
           src={this.props.src}
           alt={this.props.alt}

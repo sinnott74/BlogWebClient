@@ -5,7 +5,7 @@ import {
 } from "core/redux/util";
 import { SERVER_PATH } from "core/constants";
 import { showToast } from "core/ducks/toast";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import { createSelector } from "reselect";
 import reducerRegistry from "core/redux/ReducerRegistry";
 // import { history } from "core/redux/store";
@@ -278,6 +278,7 @@ export function loadFilterTagsFromURL(location) {
 export function addFilterTag(location, tag) {
   return function(dispatch) {
     const searchParams = new URLSearchParams(location.search);
+    searchParams.delete("page");
     let tags = searchParams.getAll("tags");
     if (tags.includes(tag)) {
       return;
@@ -298,6 +299,7 @@ export function addFilterTag(location, tag) {
 export function removeFilterTag(location, removeTag) {
   return function(dispatch) {
     const searchParams = new URLSearchParams(location.search);
+    searchParams.delete("page");
     let tags = searchParams.getAll("tags");
     searchParams.delete("tags");
     tags.forEach(tag => {

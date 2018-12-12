@@ -5,6 +5,7 @@ import Button from "react-md/lib/Buttons/Button";
 import Card from "core/components/Card";
 import TagChip from "blog/components/TagChip";
 import Markdown from "core/components/Markdown";
+import ShareLinks from "blog/components/ShareLinks";
 import ZoomableImage from "core/components/ZoomableImage";
 import Helmet from "react-helmet";
 import "./ViewBlogPost.css";
@@ -36,6 +37,7 @@ export default class ViewBlogPost extends React.Component {
             } ${this.props.author.lastname}`}</div>
           )}
           {this.props.tags && this.getTags()}
+          <ShareLinks url={window.location.href} title={this.props.title} />
           {img}
           <Markdown
             markdown={this.props.text}
