@@ -5,7 +5,7 @@ import {
 } from "core/redux/util";
 import { SERVER_PATH } from "core/constants";
 import { showToast } from "core/ducks/toast";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import { createSelector } from "reselect";
 import reducerRegistry from "core/redux/ReducerRegistry";
 // import { history } from "core/redux/store";
