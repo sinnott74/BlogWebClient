@@ -23,7 +23,6 @@ class BlogListItem extends React.PureComponent {
             className="blogpostitem__image"
             src={this.props.imageurl}
             title={this.props.title}
-            imgStyle={{ objectFit: "cover" }}
           />
         </Link>
         <div className="bloglistitem__heading">

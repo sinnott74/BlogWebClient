@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import "./LazyImage.css";
 
-const defaultPlaceholderColor = "#dcdcdc";
+import { ReactComponent as Placeholder } from "./placeholder.svg";
+
+const defaultHeightToWidthRatio = 0.5;
 
 /**
  * Image which loads its source when scrolled into view
@@ -19,7 +21,7 @@ export default class LazyImage extends React.PureComponent {
     };
 
     this.imgRef = React.createRef();
-    this.onSrcLoad = this.onSrcLoad.bind(this);
+    this.onLazyLoad = this.onLazyLoad.bind(this);
     this.onLazyImageFadeInEnd = this.onLazyImageFadeInEnd.bind(this);
 
     // IntersectionObserver exists, lazy load image
@@ -46,32 +48,24 @@ export default class LazyImage extends React.PureComponent {
   }
 
   render() {
-    const placeholderColor =
-      this.props.placeholderColor || defaultPlaceholderColor;
+    const containerStyle = {
+      ...this.props.style,
+      paddingTop: this.calculateHeight()
+    };
 
     const className = classnames("LazyImage", this.props.className, {
       "LazyImage-loaded": this.state.loaded
     });
 
-    const imgStyle = {
-      ...this.props.style,
-      position: this.state.showInitial ? "absolute" : "relative"
-    };
-
-    const placeHolderStyle = {
-      ...this.props.style,
-      backgroundColor: placeholderColor
-    };
-
     return (
       <div
         className={className}
-        style={this.props.style}
+        style={containerStyle}
         onClick={this.props.onClick}
         ref={this.imgRef}
       >
         {this.state.showInitial && (
-          <div className="LazyImage__placeholder" style={placeHolderStyle} />
+          <Placeholder className="LazyImage__placeholder" />
         )}
         {this.props.initialSrc &&
           this.state.showInitial && (
@@ -79,8 +73,7 @@ export default class LazyImage extends React.PureComponent {
               src={this.props.initialSrc}
               alt={this.props.alt}
               title={this.props.title}
-              style={imgStyle}
-              className="LazyImage__inital"
+              className="LazyImage__initial"
             />
           )}
         {this.state.load && (
@@ -89,9 +82,8 @@ export default class LazyImage extends React.PureComponent {
             alt={this.props.alt}
             title={this.props.title}
             className="LazyImage__lazy"
-            style={imgStyle}
-            onLoad={this.onSrcLoad}
-            onAnimationEnd={this.onLazyImageLoadAnimationEnd}
+            onLoad={this.onLazyLoad}
+            onAnimationEnd={this.onLazyImageFadeInEnd}
           />
         )}
       </div>
@@ -114,7 +106,7 @@ export default class LazyImage extends React.PureComponent {
     this.observer = null;
   }
 
-  onSrcLoad() {
+  onLazyLoad() {
     this.setState({
       loaded: true
     });
@@ -125,10 +117,15 @@ export default class LazyImage extends React.PureComponent {
       showInitial: false
     });
   }
+
+  calculateHeight() {
+    const ratio = this.props.heightToWidthRatio || defaultHeightToWidthRatio;
+    return ratio * 100 + "%";
+  }
 }
 
 LazyImage.propTypes = {
-  placeholderColor: PropTypes.string,
+  heightToWidthRatio: PropTypes.number,
   src: PropTypes.string,
   initialSrc: PropTypes.string,
   alt: PropTypes.string,
