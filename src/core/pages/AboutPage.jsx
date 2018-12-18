@@ -24,6 +24,8 @@ export default class AboutPage extends React.Component {
           myself each month. The goal is progressively enhance this site and to
           blog about what I did, how I did it & what I learned from it.
         </p>
+
+        <p>Super profundo on the early eve of your day</p>
       </Card>
     );
   }

@@ -18,6 +18,7 @@ export default class SideNavPanel extends React.Component {
           <img alt="Me" className="sidenavpanel__image" src={personalPic} />
           <h2 className="sidenavpanel__name">Daniel Sinnott</h2>
           <h4 className="sidenavpanel__email">Daniel.Sinnott@outlook.com</h4>
+          <h4>World's #0 Programmer!</h4>
         </div>
         <div className="sidenavpanel__body">
           <div className="sidenavpanel__links" role="navigation">
