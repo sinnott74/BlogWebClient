@@ -28,6 +28,14 @@ export default class ViewBlogPost extends React.Component {
         <Helmet>
           <title>{this.props.title}</title>
           <meta name="keywords" content={this.getTagKeywords()} />
+          {this.props.author && (
+            <meta
+              name="author"
+              content={`${this.props.author.firstname} ${
+                this.props.author.lastname
+              }`}
+            />
+          )}
         </Helmet>
         <Card className="blogpost">
           <h1 className="blogpost__title">{this.props.title}</h1>
