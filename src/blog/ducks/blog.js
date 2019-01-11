@@ -23,9 +23,10 @@ const SET_FILTER_TAGS = "SET_FILTER_TAGS";
 /**
  * Reducer
  */
+let blogposts = getBlogPostsInLocalStorage() || [];
 let initialState = {
-  byId: {},
-  allIds: [],
+  byId: arrayToObject(blogposts) || {},
+  allIds: Object.keys(blogposts) || [],
   filterTags: [],
   isLoading: false,
   hasErrored: false
@@ -33,7 +34,8 @@ let initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case LIST_BLOG_POSTS:
+    case LIST_BLOG_POSTS: {
+      setBlogPostsInLocalStorage(action.blogPosts);
       let blogPosts = arrayToObject(action.blogPosts);
       return {
         ...state,
@@ -42,38 +44,51 @@ export default function reducer(state = initialState, action) {
         },
         allIds: Object.keys(blogPosts)
       };
-    case DELETE_BLOG_ENTRY:
+    }
+    case DELETE_BLOG_ENTRY: {
       return {
         ...state
       };
-    case LOADING_BLOG_POSTS:
+    }
+    case LOADING_BLOG_POSTS: {
       return {
         ...state,
         isLoading: action.isLoading
       };
-    case BLOG_POSTS_ERRORED:
+    }
+    case BLOG_POSTS_ERRORED: {
       return {
         ...state,
         hasErrored: action.hasErrored,
         isLoading: false
       };
-    case STORE_BLOG_POST:
+    }
+    case STORE_BLOG_POST: {
       let blogPost = objectToIDKeyedObject(action.blogPost);
+      let byId = {
+        ...state.byId,
+        ...blogPost
+      };
+      let allIds = addToArrayAndSort(
+        state.allIds,
+        action.blogPost.id.toString()
+      );
+      setBlogPostsInLocalStorage(Object.values(byId));
       return {
         ...state,
-        byId: {
-          ...state.byId,
-          ...blogPost
-        },
-        allIds: addToArrayAndSort(state.allIds, action.blogPost.id.toString())
+        byId: byId,
+        allIds: allIds
       };
-    case SET_FILTER_TAGS:
+    }
+    case SET_FILTER_TAGS: {
       return {
         ...state,
         filterTags: action.tags
       };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 
@@ -255,6 +270,22 @@ export function loadBlogPost(id) {
         dispatch(blogHasErrored(true));
       });
   };
+}
+
+/**
+ * Reads blogpost array from localstorage
+ * @returns {Array.<blogpost>}
+ */
+function getBlogPostsInLocalStorage() {
+  return JSON.parse(localStorage.getItem("blogposts")) || [];
+}
+
+/**
+ * Stores the blogpost array in localstorage to be used offline
+ * @param {Array.<blogpost>} blogposts
+ */
+function setBlogPostsInLocalStorage(blogposts) {
+  localStorage.setItem("blogposts", JSON.stringify(blogposts));
 }
 
 /**
