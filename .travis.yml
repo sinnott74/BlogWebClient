@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '9'
+  - "11"
 
 sudo: required
 
@@ -9,7 +9,7 @@ sudo: required
 cache:
   yarn: true
   directories:
-  - node_modules # NPM packages
+    - node_modules # NPM packages
 
 # Deploy
 # Bluemix
