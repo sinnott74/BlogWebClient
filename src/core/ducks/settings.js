@@ -9,7 +9,9 @@ const TOGGLE_DARKTHEME = "TOGGLE_DARKTHEME";
  * Reducer
  */
 let initialState = {
-  darkTheme: localStorage.getItem("darkTheme") === "true" || false
+  darkTheme:
+    localStorage.getItem("darkTheme") === "true" ||
+    window.matchMedia("(prefers-color-scheme)").matches
 };
 
 export default function reducer(state = initialState, action) {
