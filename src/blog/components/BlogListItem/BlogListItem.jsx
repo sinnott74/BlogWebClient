@@ -12,6 +12,9 @@ class BlogListItem extends React.PureComponent {
       var tagEl = <div className="bloglistitem__tags">{this.getTags()}</div>;
     }
 
+    const imageHeightToWidthRatio =
+      this.props.imageurl && this.props.imageurl.split("#")[1];
+
     return (
       <Card className="bloglistitem">
         <Link
@@ -23,6 +26,7 @@ class BlogListItem extends React.PureComponent {
             className="blogpostitem__image"
             src={this.props.imageurl}
             title={this.props.title}
+            heightToWidthRatio={imageHeightToWidthRatio}
           />
         </Link>
         <div className="bloglistitem__heading">
@@ -41,7 +45,7 @@ class BlogListItem extends React.PureComponent {
   }
 
   getTags() {
-    return this.props.tags.map(tag => {
+    return this.props.tags.map((tag) => {
       return (
         <TagChip
           key={tag.name}
@@ -65,10 +69,10 @@ BlogListItem.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
     })
   ),
-  onTagClick: PropTypes.func
+  onTagClick: PropTypes.func,
 };
 
 export default BlogListItem;
