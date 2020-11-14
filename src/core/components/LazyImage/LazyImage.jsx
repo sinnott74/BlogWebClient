@@ -17,7 +17,7 @@ export default class LazyImage extends React.PureComponent {
     this.state = {
       load: true,
       loaded: true,
-      showInitial: false
+      showInitial: false,
     };
 
     this.imgRef = React.createRef();
@@ -50,11 +50,11 @@ export default class LazyImage extends React.PureComponent {
   render() {
     const containerStyle = {
       ...this.props.style,
-      paddingTop: this.calculateHeight()
+      paddingTop: this.calculateHeight(),
     };
 
     const className = classnames("LazyImage", this.props.className, {
-      "LazyImage-loaded": this.state.loaded
+      "LazyImage-loaded": this.state.loaded,
     });
 
     return (
@@ -67,15 +67,14 @@ export default class LazyImage extends React.PureComponent {
         {this.state.showInitial && (
           <Placeholder className="LazyImage__placeholder" />
         )}
-        {this.props.initialSrc &&
-          this.state.showInitial && (
-            <img
-              src={this.props.initialSrc}
-              alt={this.props.alt}
-              title={this.props.title}
-              className="LazyImage__initial"
-            />
-          )}
+        {this.props.initialSrc && this.state.showInitial && (
+          <img
+            src={this.props.initialSrc}
+            alt={this.props.alt}
+            title={this.props.title}
+            className="LazyImage__initial"
+          />
+        )}
         {this.state.load && (
           <img
             src={this.props.src}
@@ -91,7 +90,7 @@ export default class LazyImage extends React.PureComponent {
   }
 
   intersectionCallback(entries, observer) {
-    if (entries.some(entry => entry.isIntersecting)) {
+    if (entries.some((entry) => entry.isIntersecting)) {
       this.onInView();
     }
   }
@@ -99,7 +98,7 @@ export default class LazyImage extends React.PureComponent {
   onInView() {
     if (this.props.src) {
       this.setState({
-        load: true
+        load: true,
       });
     }
     this.observer.disconnect();
@@ -108,18 +107,21 @@ export default class LazyImage extends React.PureComponent {
 
   onLazyLoad() {
     this.setState({
-      loaded: true
+      loaded: true,
     });
   }
 
   onLazyImageFadeInEnd() {
     this.setState({
-      showInitial: false
+      showInitial: false,
     });
   }
 
   calculateHeight() {
-    const ratio = this.props.heightToWidthRatio || defaultHeightToWidthRatio;
+    const ratio =
+      this.props.heightToWidthRatio ||
+      (this.props.src && this.props.src.split("#")[1]) ||
+      defaultHeightToWidthRatio;
     return ratio * 100 + "%";
   }
 }
@@ -132,5 +134,5 @@ LazyImage.propTypes = {
   title: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
-  style: PropTypes.objectOf(PropTypes.string)
+  style: PropTypes.objectOf(PropTypes.string),
 };

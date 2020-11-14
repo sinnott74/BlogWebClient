@@ -12,9 +12,6 @@ class BlogListItem extends React.PureComponent {
       var tagEl = <div className="bloglistitem__tags">{this.getTags()}</div>;
     }
 
-    const imageHeightToWidthRatio =
-      this.props.imageurl && this.props.imageurl.split("#")[1];
-
     return (
       <Card className="bloglistitem">
         <Link
